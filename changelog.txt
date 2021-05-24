@@ -1,0 +1,76 @@
+ToDo: Wigfrid eat achivement check
+hunger etc from level +3 insulation +10 -add as balance variable
+
+3.6.11 Changes:
+Mod Config Option to disable global notifications for completed achievements
+
+3.6.10 Changes:
+Klaus now drops his sketch
+Fix error with bundle wrap
+
+3.6.9 Changes:
+Added French translation thanks to Melerickk
+Fixed russian translation
+
+3.6.7a Changes:
+fix code error
+
+3.6.7 Changes:
+Fixed Antlion error
+Updated Russian
+Fixed error when learning mod recipes
+
+3.6.6 Changes:
+Added Vietnamese - Thanks to Thố
+Updated Korean and Russian
+
+3.6.5 Changes:
+Updated Korean Language
+Added Russian - thanks to JesterOK, mad_alice
+Removed not updated languages
+
+3.6.4 Changes:
+Added new translation for simplified Chinese
+Fixed an error with characters that can not eat
+
+3.6.3 Changes:
+Translation System Change
+Some laguages are not done yet
+Please feel free to translate the tranlation_xx.lua of your language in the mod folder and share a link so I can download it.
+
+3.6.2 Changes:
+
+Pepper Poppers now count for heating up with food
+Instant fishing perk from 15 to 10
+Fast Crafting from 20 to 10
+Loot Goblin from 30 to 40
+Crab King stars from 7 to 10
+
+Fixed error with beefalo event
+
+Preparation to switch how translations are handeled,
+because it hindered me from creating new achievements and perks.
+The translations have to be updated by copy pasting to the new format.
+It would be great help if native speakers could update these.
+If not, in the next update english strings will be used for the other languages.
+
+
+3.6.0 Changes:
+
+Crit is maxed at 50% and is more expensive
+XP can now be gained by doing the following:
+Craft item = 10XP
+Build structure = 20XP
+Finish Work = 2XP (all activites that need multiple actions to complete like cutting trees, mining stone, hammering structures)
+Learn new blueprint = 10% of your current needed XP for the next level
+
+Limited defense upgrades to 80%
+Removed Unagi from eatlist if playing without caves
+Adjusted the Bookworm perk with the new growth books
+Refreshness cost from 40 to 50
+Crab King stars from 5 to 7
+Mother Nature achivement now needs wild plants to be planted (no seeds but trees, bushes, grass or saplings)
+
+NEW Achievement: Misc - Green Thumb - Hold all giant plants in your hands - have fun farming :)
+
+
