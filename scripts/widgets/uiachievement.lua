@@ -426,8 +426,8 @@ local uiachievement = Class(Widget, function(self, owner)
 	end)
 	--local languagelist = { "English", "Korean", "Portugese (Brazil)", "Spanish", "Italian", "simplified Chinese", "traditional Chinese", "Russian", "German", "Vietnamese", "Polish"}
 	--local shortlist = { "e", "kr", "ptbr", "es", "it", "chs", "cht", "ru", "de", "vi", "pl"}
-	local languagelist = { "English", "Korean", "simplified Chinese", "Russian", "Vietnamese", "French"}
-	local shortlist = { "en", "kr","chs", "ru", "vi", "fr"}
+	local languagelist = { "English", "Korean", "simplified Chinese", "Russian", "Vietnamese", "French", "Italian"}
+	local shortlist = { "en", "kr","chs", "ru", "vi", "fr", "it"}
 	self.mainbutton.languages = self.mainbutton:AddChild(Widget("languages"))
 	self.mainbutton.languages:SetPosition(205, -20, 0)
 	self.mainbutton.languages:Hide()
