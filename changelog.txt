@@ -1,8 +1,12 @@
 ToDo: Wigfrid eat achivement check
 hunger etc from level +3 insulation +10 -add as balance variable
 
+3.6.12 Changes:
+
+
 3.6.11 Changes:
 Mod Config Option to disable global notifications for completed achievements
+Added Italian Language - thanks to JdiJack
 
 3.6.10 Changes:
 Klaus now drops his sketch
