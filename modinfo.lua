@@ -119,7 +119,7 @@ configuration_options =
                         {description = "Korean", data = "kr"},
 						--{description = "Portuguese (Brazil)", data = "ptbr"},
 						--{description = "Spanish", data = "es"},
-						--{description = "Italian", data = "it"},
+						{description = "Italian", data = "it"},
 						{description = "simplified Chinese", data = "chs"},
 						--{description = "traditional Chinese", data = "cht"},
 						{description = "Russian", data = "ru"},
