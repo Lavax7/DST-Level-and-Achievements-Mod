@@ -1,7 +1,17 @@
-ToDo: Wigfrid eat achivement check
-hunger etc from level +3 insulation +10 -add as balance variable
+ToDo: 
+-Wigfrid eat achivement check
+-hunger etc from level +3 insulation +10 -> add as balance variable
+-limit PlaySound on coin or levelpoint use to the player
+
+3.6.13 Changes:
+updated Korean language
+Added more mod config options:
+-Choose how to gain xp
+-Disable level and achivement point gain
+updated antlion script
 
 3.6.12 Changes:
+Fixed bug with upgrade costs when reloading the game. - thanks to Fivever
 
 
 3.6.11 Changes:

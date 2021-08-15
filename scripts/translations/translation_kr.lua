@@ -45,7 +45,7 @@ STRINGS.GUI={
 ["attributelabels"] = "최대 허기:\n최대 정신력:\n최대 생명력:\n대미지:\n방어력:\n속도:\n시원함:\n따듯함:\n",
 ["attributeunits"] = "\n\n%\n%\n%\n\n\n",
 ["resetlevel"] = "리셋 할 경우, 모든 업그레이드가 지워지며,  그중 "..math.ceil(reset_refund_percentage*100).."%의 업적 포인트를 돌려 받습니다.",
-["iteminfo"] = "이 스텟은 기본적인 캐릭터 스텟+ 업적으로 인한 추가 스텟입니다.....오터틀 번역.",
+["iteminfo"] = "이 스텟은 기본적인 캐릭터 스텟+ 업적으로 인한 추가 스텟입니다.  번역:오터틀",
 ["availablePoints"] = "능력 \n 포인트: \n ",
 ["overallxp"] = "총합 경험치: ",
 ["foodlist"] = "음식 리스트",
@@ -126,11 +126,11 @@ STRINGS.ACHIEVEMENTS={
     },
     ["rot"] = {
         ["name"] = "화생방",
-        ["description"] = "독가스에 의해 죽으세요",
-        ["info"] = "님이 독구름에 의해 죽었습니다!",
+        ["description"] = "독꺼비버섯 독구름에 의해 죽으세요",
+        ["info"] = "님이 독꺼비버섯 독구름에 의해 죽었습니다!",
     },
     ["deathalot"] = {
-        ["name"] = "유우우령",
+        ["name"] = "유령",
         ["description"] = ""..allachiv_eventdata["deathalot"].." 번 죽으세요",
         ["info"] = "님이"..allachiv_eventdata["deathalot"].." 번 죽었습니다!",
     },
@@ -145,7 +145,7 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 동료를 "..allachiv_eventdata["messiah"].." 번 살려냈습니다!",
     },
     ["sleeptent"] = {
-        ["name"] = "잠만보",
+        ["name"] = "수면",
         ["description"] = "텐트에서 "..allachiv_eventdata["sleeptent"].." 번 자세요",
         ["info"] = "님이 텐트에서 "..allachiv_eventdata["sleeptent"].." 번 잠들었습니다!",
     },
@@ -185,12 +185,12 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 수확을 "..allachiv_eventdata["pickmaster"].." 번 하였습니다!",
     },
     ["chopappren"] = {
-        ["name"] = "MR.비버",
+        ["name"] = "나무꾼",
         ["description"] = "나무를 "..allachiv_eventdata["chopappren"].." 번 베거나 파내세요",
         ["info"] = "님이 나무를 "..allachiv_eventdata["chopappren"].." 번 베거나 파냈습니다!",
     },
     ["chopmaster"] = {
-        ["name"] = "MR.곰소리",
+        ["name"] = "베테랑 나무꾼",
         ["description"] = "나무를 "..allachiv_eventdata["chopmaster"].." 그루 베거나 파내세요",
         ["info"] = "님이 나무를 "..allachiv_eventdata["chopmaster"].." 번 베거나 파냈습니다!",
     },
@@ -275,7 +275,7 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 노움"..allachiv_eventdata["gnome"].." 개를 소지했습니다!",
     },
     ["mosquito"] = {
-        ["name"] = "흡혈충",
+        ["name"] = "여름의 적수",
         ["description"] = "모기 "..allachiv_eventdata["mosquito"].." 개를 소지하세요",
         ["info"] = "님이 모기 "..allachiv_eventdata["mosquito"].." 마리를 소지했습니다!",
     },
@@ -310,7 +310,7 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 거미 "..allachiv_eventdata["spooder"].." 마리와 친구가 되었습니다!",
     },
     ["evil"] = {
-        ["name"] = "숲속의 요정",
+        ["name"] = "루타바가 요정",
         ["description"] = "만드레이크 "..allachiv_eventdata["evil"].." 마리와 친구가 되세요",
         ["info"] = "님이 만드레이크 "..allachiv_eventdata["evil"].." 마리와 친구가 되었습니다!",
     },
@@ -355,7 +355,7 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 얼어붙었습니다!",
     },
     ["sleep"] = {
-        ["name"] = "곰소리의 자장가",
+        ["name"] = "수면시간",
         ["description"] = "잠에 빠지세요",
         ["info"] = "님이 잠에 빠졌습니다!",
     },
@@ -380,8 +380,8 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 "..(allachiv_eventdata["firebody"]/60).." 분동안 일사병에 걸렸습니다!",
     },
     ["moistbody"] = {
-        ["name"] = "물과 하나가 되다",
-        ["description"] = ""..(allachiv_eventdata["moistbody"]/60).." 분동안",
+        ["name"] = "물이 되다",
+        ["description"] = ""..(allachiv_eventdata["moistbody"]/60).." 분동안 물에 젖으세요",
         ["info"] = "님이 "..(allachiv_eventdata["moistbody"]/60).." 분동안 물에 젖어있었습니다!",
     },
     ["evilflower"] = {
@@ -455,7 +455,7 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 체스터를 죽였습니다!!",
     },
     ["hutch"] = {
-        ["name"] = "고통을 통해 배우는것",
+        ["name"] = "아슬아슬",
         ["description"] = "체력 10 이하의 상태에서 복어허치를 잡으세요",
         ["info"] = "님이 체력이 10이하인 상태에서 복어허치를 잡았습니다",
     },
@@ -470,7 +470,7 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 모슬링 "..allachiv_eventdata["mossling"].." 마리를 죽였습니다!",
     },
     ["weetusk"] = {
-        ["name"] = "NO MERCY",
+        ["name"] = "자비란 없다",
         ["description"] = "맥터스크 아들 "..allachiv_eventdata["weetusk"].." 마리를 죽이세요",
         ["info"] = "님이 맥터스크 아들 "..allachiv_eventdata["weetusk"].." 마리를 죽였습니다!",
     },
@@ -480,7 +480,7 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 촉수 "..allachiv_eventdata["snake"].." 마리를 죽였습니다!",
     },
     ["black"] = {
-        ["name"] = "예상치 못한 변수",
+        ["name"] = "갑작스런 변수",
         ["description"] = "점액양을 혼자서 죽이세요",
         ["info"] = "님이 점액양을 혼자서 죽였습니다!",
     },
@@ -517,7 +517,7 @@ STRINGS.ACHIEVEMENTS={
     ["santa"] = {
         ["name"] = "크리스마스 오터틀",
         ["description"] = "클라우스를 죽이세요",
-        ["info"] = "님이아닌 오터틀님이 클라우스를 죽였습니다!",
+        ["info"] = "님과 오터틀님이 클라우스를 죽였습니다!",
     },
     ["dragonfly"] = {
         ["name"] = "파리채",
@@ -526,8 +526,8 @@ STRINGS.ACHIEVEMENTS={
     },
     ["malbatross"] = {
         ["name"] = "시조새",
-        ["description"] = "말바트로스를 죽이세요",
-        ["info"] = "님이 말바트로스를 죽였습니다!",
+        ["description"] = "꽉새치를 죽이세요",
+        ["info"] = "님이 꽉새치를 죽였습니다!",
     },
     ["crabking"] = {
         ["name"] = "MR.대게왕",
@@ -561,36 +561,36 @@ STRINGS.ACHIEVEMENTS={
     },
     ["rigid"] = {
         ["name"] = "영웅",
-        ["description"] = "하드모드 독두꺼비를 죽이세요",
-        ["info"] = "님이 하드모드 독두꺼비를 죽였습니다!",
+        ["description"] = "비참해진 독꺼비섯을 죽이세요",
+        ["info"] = "님이 비참해진 독꺼비섯을 죽였습니다!",
     },
     ["queen"] = {
-        ["name"] = "살인벌",
+        ["name"] = "거대벌",
         ["description"] = "여왕벌을 죽이세요",
         ["info"] = "님이 여왕벌을 죽였습니다!",
     },
     ["king"] = {
         ["name"] = "4대장",
-        ["description"] = "계절마다 보스를 죽이세요",
+        ["description"] = "사계절의 보스들을 모두 죽이세요",
         ["info"] = "님이 사계절 보스를 모두 죽였습니다!",
     },
     ["intogame"] = {
-        ["name"] = "와! 신입이다!",
+        ["name"] = "신입",
         ["description"] = "게임에 입장하세요",
         ["info"] = "님이 게임에 처음으로 입장했습니다~~!!",
     },
     ["superstar"] = {
         ["name"] = "업적 사냥꾼",
-        ["description"] = "Spend "..allachiv_eventdata["superstar"].." 개의 업적포인트를 사용하세요",
+        ["description"] = ""..allachiv_eventdata["superstar"].." 개의 업적포인트를 사용하세요",
         ["info"] = "님이 "..allachiv_eventdata["superstar"].." 개의 업적포인트를 사용했습니다!",
     },
     ["trader"] = {
         ["name"] = "상인",
-        ["description"] = "돼지왕에게 "..allachiv_eventdata["trader"].." 개의 금을 얻으세요",
-        ["info"] = "님이 돼지왕에게 여러개의 금을 얻었습니다!",
+        ["description"] = "돼지왕과 "..allachiv_eventdata["trader"].." 번 거래하세요",
+        ["info"] = "님이 돼지왕에게 여러번 거래를 하였습니다!",
     },
     ["fuzzy"] = {
-        ["name"] = "친구에게 주는 선물",
+        ["name"] = "속임수",
         ["description"] = "개미사자에게 "..allachiv_eventdata["fuzzy"].." 개의 보온석을 먹이세요",
         ["info"] = "님이 개미사자에게 보온석 여러개를 먹였습니다!",
     },
@@ -617,15 +617,15 @@ STRINGS.ACHIEVEMENTS={
     ["lightning"] = {
         ["name"] = "괴짜",
         ["description"] = "번개에 맞으세요",
-        ["info"] = "님이 번개에 맞았습니다ㅋㅋㅋ",
+        ["info"] = "님이 번개에 맞았습니다!",
     },
     ["birchnut"] = {
         ["name"] = "살아있는 버치넛 나무",
         ["description"] = "독 버치넛나무 "..allachiv_eventdata["birchnut"].." 그루를 베세요",
-        ["info"] = "님이 독버치넛나무 "..allachiv_eventdata["birchnut"].." 그루를 베셨습니다!",
+        ["info"] = "님이 독버치넛나무 "..allachiv_eventdata["birchnut"].." 그루를 베었습니다!",
     },
     ["all"] = {
-        ["name"] = "졸업생",
+        ["name"] = "졸업",
         ["description"] = "모든 업적을 완료하세요",
         ["info"] = "님이 모든 업적을 완료했습니다!",
     },
@@ -660,9 +660,9 @@ STRINGS.ACHIEVEMENTS={
         ["info"] = "님이 비팔로를 "..(allachiv_eventdata["rider"]/60).." 분동안 탔습니다!",
     },
     ["fullsanity"] = {
-        ["name"] = "세련된",
+        ["name"] = "강철멘탈",
         ["description"] = ""..(allachiv_eventdata["fullsanity"]/60).." 분동안 정신력 95% 이상을 유지하세요",
-        ["info"] = "님이 "..(allachiv_eventdata["fullsanity"]/60).." 분동안 맑은 정신을 유지했습니다!",
+        ["info"] = "님이 "..(allachiv_eventdata["fullsanity"]/60).." 분동안 높은 정신력을 유지했습니다!",
     },
     ["fullhunger"] = {
         ["name"] = "don't starve together",
@@ -699,11 +699,11 @@ STRINGS.PERKS={
         ["description"]="허기감소율을 "..(math.ceil(allachiv_coindata["hungerrateup"]*100)).."% 줄입니다",
     },
     ["sanityregen"] = {
-        ["name"]="정신력 회복 +",
+        ["name"]="정신력 재생 +",
         ["description"]="정신력이 "..allachiv_coindata["sanityregen"].."/5초 만큼 지속 회복됩니다",
     },
     ["healthregen"] = {
-        ["name"]="체력회복 +",
+        ["name"]="체력재생 +",
         ["description"]="체력이 "..allachiv_coindata["healthregen"].."/5초만큼 지속 회복됩니다",
     },
     ["damageup"] = {
@@ -735,8 +735,8 @@ STRINGS.PERKS={
         ["description"]="크람푸스 가방의 드랍률이 "..(math.ceil(allachiv_coindata["krampusxmas"]*100)).."% 증가합니다",
     },
     ["fireflylightup"] = {
-        ["name"]="자체발광 +",
-        ["description"]="몸에서 작은빛을 냅니다",
+        ["name"]="발광레벨 +",
+        ["description"]="몸주변에서 빛을 냅니다",
     },
     ["goodman"] = {
         ["name"]="친화력 갑",
@@ -775,7 +775,7 @@ STRINGS.PERKS={
         ["description"]="몬스터를 죽일때 두배로 보상을 얻습니다",
     },
     ["buildmaster"] = {
-        ["name"]="농땡이",
+        ["name"]="밑장빼기",
         ["description"]="아이템 제작시 제료를 절반만 사용합니다",
     },
     ["nanobots"] = {
@@ -811,7 +811,7 @@ STRINGS.PERKS={
         ["description"]="모든 특별 이벤트가 활성화됩니다",
     },
     ["minemaster"] = {
-        ["name"]="드릴",
+        ["name"]="인간드릴",
         ["description"]="광석을 즉시 채굴합니다",
     },
     ["fastworker"] = {
@@ -824,7 +824,7 @@ STRINGS.PERKS={
     },
     ["cheatdeath"] = {
         ["name"]="죽음 극복",
-        ["description"]="죽기 직전일때 보호막이 생깁니다! 쿨타임 : "..(allachiv_coindata["cheatdeath"]/60).." 분",
+        ["description"]="죽기 직전일때 일시 무적과 주변피해를 줍니다! 쿨타임 : "..(allachiv_coindata["cheatdeath"]/60).." 분",
     },
     ["naturalist"] = {
         ["name"]="웜우드 실직",

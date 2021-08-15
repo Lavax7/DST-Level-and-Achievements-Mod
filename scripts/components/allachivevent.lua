@@ -925,7 +925,13 @@ function allachivevent:seffc(inst, tag)
 		TheNet:Announce(inst:GetDisplayName().."   "..strinfo..STRINGS.GUI["space"]..STRINGS.GUI["complA"]..strname..STRINGS.GUI["br2"])
 	end
 	inst.components.talker:Say(STRINGS.GUI["br1"]..strname..STRINGS.GUI["br2"].."\n"..STRINGS.GUI["obt"]..allachiv_coinget[tag]..STRINGS.GUI["points"])
-	inst.components.allachivcoin:coinDoDelta(allachiv_coinget[tag])
+	
+	if _G.NOAWARDS ~= true then
+		inst.components.allachivcoin:coinDoDelta(allachiv_coinget[tag])
+		inst.components.talker:Say(STRINGS.GUI["br1"]..strname..STRINGS.GUI["br2"].."\n"..STRINGS.GUI["obt"]..allachiv_coinget[tag]..STRINGS.GUI["points"])
+	else
+		inst.components.talker:Say(STRINGS.GUI["br1"]..strname..STRINGS.GUI["br2"])
+	end
 end
 
 --Enter Game

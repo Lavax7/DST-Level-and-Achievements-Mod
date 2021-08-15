@@ -140,6 +140,7 @@ local function OnGivenItem(inst, giver, item)
     if timeleft ~= nil then
         timeleft = math.min(timeleft + rage_calming, TUNING.ANTLION_RAGE_TIME_MAX)
         inst.components.worldsettingstimer:SetTimeLeft(ANTLION_RAGE_TIMER, timeleft)
+		inst.components.worldsettingstimer:ResumeTimer(ANTLION_RAGE_TIMER)																  
     else
         inst.components.worldsettingstimer:StartTimer(ANTLION_RAGE_TIMER, inst.maxragetime)
     end
@@ -196,11 +197,11 @@ end
 local function OnInit(inst)
     inst.inittask = nil
     inst.onsandstormchanged = function(src, data)
-        if not data then
+        if data.stormtype == STORM_TYPES.SANDSTORM and not data.setting then
             Despawn(inst)
         end
     end
-    inst:ListenForEvent("ms_sandstormchanged", inst.onsandstormchanged, TheWorld)
+    inst:ListenForEvent("ms_stormchanged", inst.onsandstormchanged, TheWorld)
     if not (TheWorld.components.sandstorms ~= nil and TheWorld.components.sandstorms:IsSandstormActive()) then
         Despawn(inst)
     end
@@ -275,7 +276,7 @@ local function StartCombat(inst, target, trigger)
             inst.inittask:Cancel()
             inst.inittask = nil
         else
-            inst:RemoveEventCallback("ms_sandstormchanged", inst.onsandstormchanged, TheWorld)
+            inst:RemoveEventCallback("ms_stormchanged", inst.onsandstormchanged, TheWorld)
             inst.onsandstormchanged = nil
         end
 

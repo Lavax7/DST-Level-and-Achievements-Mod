@@ -234,13 +234,14 @@ end
 
 function levelsystem:xpDoDelta(value,inst)
 	self.overallxp = self.overallxp + value
-    self.levelxp = self.levelxp + value
-	while(math.min(levelxpcap, self.level*100) <= self.levelxp) do 
-		self.levelxp = self.levelxp - math.min(levelxpcap,self.level*100)
-		self:levelDoDelta()
-		self:onlevelup(inst)
+	if _G.NOAWARDS ~= true then
+	    self.levelxp = self.levelxp + value
+		while(math.min(levelxpcap, self.level*100) <= self.levelxp) do 
+			self.levelxp = self.levelxp - math.min(levelxpcap,self.level*100)
+			self:levelDoDelta()
+			self:onlevelup(inst)
+		end
 	end
-		
 end
 
 function levelsystem:hungeruplevel(inst)
@@ -602,6 +603,7 @@ end
 --gain xp
 function levelsystem:onkilledother(inst)
     inst:ListenForEvent("killed", function(killer, data)
+		if _G.KILLXP ~= true then return end
         local victim = data.victim
         if victim and victim.components.health and killer:HasTag("player") and
 				not victim:HasTag("veggie") and 
@@ -635,6 +637,7 @@ function levelsystem:onkilledother(inst)
 end
 
 function levelsystem:eatfn(inst)
+	if _G.FOODXP ~= true then return end
     inst:DoTaskInTime(1, function()
 		if inst.components.eater == nil then return end
         local oldeatfn = inst.components.eater.oneatfn
@@ -658,16 +661,20 @@ end
 
 function levelsystem:onCraft(inst)
 	inst:ListenForEvent("finishedwork",	function()
+		if _G.WORKXP ~= true then return end
 		self:xpDoDelta(2*_G.EXPMULT, inst)
 	end)
 	inst:ListenForEvent("unlockrecipe", function()
+		if _G.UNLOCKXP ~= true then return end
 		local currentXPGoal = math.min(levelxpcap, self.level*100)
 		self:xpDoDelta(math.floor(currentXPGoal/10)*_G.EXPMULT, inst)
 	end)	
 	inst:ListenForEvent("builditem", function()
+		if _G.BUILDXP ~= true then return end
 		self:xpDoDelta(10*_G.EXPMULT, inst)
 	end)	
 	inst:ListenForEvent("buildstructure", function()
+		if _G.BUILDXP ~= true then return end
 		self:xpDoDelta(20*_G.EXPMULT, inst)
 	end)
 end

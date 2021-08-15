@@ -1,7 +1,7 @@
 name =
 [[Achievements and Level System]]
 description =
-[[v3.6.12
+[[v3.6.13
 Adds a achievement and leveling system to the game.
 To gain level xp eat food or kill monster.
 Spend available attribute points to upgrade your stats
@@ -10,7 +10,7 @@ Spend achievement stars to upgrade stats or unlock permanent abilities.
 If you complete all achievements you can enable multiple playthroughs in the mod configuration.
 ]]
 author = "Lavax"
-version = "3.6.12"
+version = "3.6.13"
 priority = -1000
 server_filter_tags = {"achievement", "level"}
 
@@ -74,11 +74,29 @@ translations = {
         ["Unlimited"] = "Unlimited",
         ["RepeatInfo"] = "After completing all achievements they will be reset for this many times",
 
+		["NoAwards"] = "No Awards",
+        ["NoAwardsInfo"] = "No Awards for XP or Achievements",
+		
         ["Level XP cap"] = "Level XP cap",
         ["XPCapInfo"] = "Maximum XP needed to gain a level up",
 
         ["Level Up Points"] = "Level Up Points",
         ["LevelPointsInfo"] = "Points awarded after leveling up",
+		
+		["FoodXP"] = "Eat XP",
+        ["FoodXPInfo"] = "gain xp for eating dishes",
+		
+		["BuildXP"] = "Craft XP",
+        ["BuildXPInfo"] = "gain xp for crafting",
+		
+		["UnlockXP"] = "Unlock XP",
+        ["UnlockXPInfo"] = "gain xp for unlocking recipes",
+		
+		["KillXP"] = "Kill XP",
+        ["KillXPInfo"] = "gain xp for killing monsters",
+		
+		["WorkXP"] = "Work XP",
+        ["WorkXPInfo"] = "gain xp for working",
 
 		["Notification"] = "Global Notifications",
 		["NotificationInfo"] = "Show global notifications for completed achievements",
@@ -239,6 +257,16 @@ configuration_options =
         hover = language["RepeatInfo"],
     },
 	{
+        name = "NOAWARDS",
+        label = language["NoAwards"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = false,
+		hover = language["NoAwardsInfo"],
+    },
+	{
         name = "LEVELXP",
         label = language["Level XP cap"],
         options =   {
@@ -263,6 +291,56 @@ configuration_options =
                     },
         default = 3,
         hover = language["LevelPointsInfo"],
+    },
+	{
+        name = "FOODXP",
+        label = language["FoodXP"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+		hover = language["FoodXPInfo"],
+    },
+	{
+        name = "BUILDXP",
+        label = language["BuildXP"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+		hover = language["BuildXPInfo"],
+    },
+	{
+        name = "UNLOCKXP",
+        label = language["UnlockXP"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+		hover = language["UnlockXPInfo"],
+    },
+	{
+        name = "KILLXP",
+        label = language["KillXP"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+		hover = language["KillXPInfo"],
+    },
+	{
+        name = "WORKXP",
+        label = language["WorkXP"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+		hover = language["WorkXPInfo"],
     },
 	{
         name = "MANDRAKEBOI",

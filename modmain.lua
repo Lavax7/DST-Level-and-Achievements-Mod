@@ -24,6 +24,12 @@ _G.EXPMULT = GetModConfigData('EXPMULT')
 _G.LEVELXP = GetModConfigData('LEVELXP')
 _G.LEVELPOINTS = GetModConfigData('LEVELPOINTS')
 _G.NOTIFICATION = GetModConfigData('NOTIFICATION')
+_G.NOAWARDS = GetModConfigData('NOAWARDS')
+_G.FOODXP = GetModConfigData('FOODXP')
+_G.BUILDXP = GetModConfigData('BUILDXP')
+_G.UNLOCKXP = GetModConfigData('UNLOCKXP')
+_G.KILLXP = GetModConfigData('KILLXP')
+_G.WORKXP = GetModConfigData('WORKXP')
 
 require 'system/balance'
 require "system/rpc"
