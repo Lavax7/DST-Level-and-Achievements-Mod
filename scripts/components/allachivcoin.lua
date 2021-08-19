@@ -949,7 +949,7 @@ function allachivcoin:cheatdeathfn(inst)
 	local onCoolDown = false
 	inst:ListenForEvent("minhealth", function(player, data)
 		if self.cheatdeath and not onCoolDown and player.components.health.currenthealth <= 0 then
-			player.components.health.currenthealth = 1
+			player.components.health.currenthealth = 5
 			player.components.health:SetInvincible(true)
 			if player._fx ~= nil then
 				player._fx:kill_fx()
@@ -978,12 +978,21 @@ function allachivcoin:cheatdeathfn(inst)
 				local angle = 0
 				local pos = Vector3(inst.Transform:GetWorldPosition())
 				for i=1, 12 do
-					local bomb = SpawnPrefab("gunpowder")
+					local bomb = SpawnPrefab("explode_small")
 					local z = pos.z + 2.5*math.cos(angle*math.pi/180)
 					local x = pos.x + 2.5*math.sin(angle*math.pi/180)
 					bomb.Transform:SetPosition(x, pos.y, z)
-					bomb.components.explosive:OnBurnt()
 					angle = angle + 360/12
+				end
+				local combat_tag = {"_combat"}
+				local innocent_tag = {"bird","wall","glommer","butterfly","berrythief","rabbit","mole","grassgekko","chester","hutch","player"}
+				local musthave_tag = {"_combat","critter","woby"} or {"_health"}
+				local ents = TheSim:FindEntities(pos.x,pos.y,pos.z, 10, combat_tag,innocent_tag,musthave_tag)
+				local damage = 1000
+				for k,v in pairs(ents) do
+					if v and v.components.combat and v:HasTag("_combat") then
+						v.components.combat:GetAttacked(inst, damage)
+					end
 				end
 			end)
 			

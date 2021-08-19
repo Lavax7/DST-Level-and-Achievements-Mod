@@ -224,7 +224,9 @@ function levelsystem:onlevelup(inst)
 end
 
 function levelsystem:attributepointDoDelta(value)
-    self.attributepoints = self.attributepoints + value
+	if _G.NOAWARDS ~= true then
+		self.attributepoints = self.attributepoints + value
+	end
 end
 
 function levelsystem:levelDoDelta()
@@ -234,13 +236,11 @@ end
 
 function levelsystem:xpDoDelta(value,inst)
 	self.overallxp = self.overallxp + value
-	if _G.NOAWARDS ~= true then
-	    self.levelxp = self.levelxp + value
-		while(math.min(levelxpcap, self.level*100) <= self.levelxp) do 
-			self.levelxp = self.levelxp - math.min(levelxpcap,self.level*100)
-			self:levelDoDelta()
-			self:onlevelup(inst)
-		end
+	self.levelxp = self.levelxp + value
+	while(math.min(levelxpcap, self.level*100) <= self.levelxp) do 
+		self.levelxp = self.levelxp - math.min(levelxpcap,self.level*100)
+		self:levelDoDelta()
+		self:onlevelup(inst)
 	end
 end
 
