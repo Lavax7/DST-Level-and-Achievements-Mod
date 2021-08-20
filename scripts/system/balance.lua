@@ -4,6 +4,14 @@ reset_refund_percentage = _G.REFUND_CONFIG
 levelxpcap = _G.LEVELXP
 attributepointsOnLevel = _G.LEVELPOINTS
 
+healthGain = _G.HEALTHGAIN
+sanityGain = _G.SANITYGAIN
+hungerGain = _G.HUNGERGAIN
+insulationGain = _G.INSULATIONGAIN
+speedGain = _G.SPEEDGAIN
+absorbGain = _G.ABSORBGAIN
+damageGain = _G.DAMAGEGAIN
+
 allachiv_eventdata={
 --Food
 ["firsteat"] = nil,

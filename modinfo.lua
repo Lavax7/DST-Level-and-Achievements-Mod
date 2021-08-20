@@ -1,7 +1,7 @@
 name =
 [[Achievements and Level System]]
 description =
-[[v3.7.0
+[[v3.7.1
 Adds a achievement and leveling system to the game.
 To gain level xp eat food or kill monster.
 Spend available attribute points to upgrade your stats
@@ -10,7 +10,7 @@ Spend achievement stars to upgrade stats or unlock permanent abilities.
 If you complete all achievements you can enable multiple playthroughs in the mod configuration.
 ]]
 author = "Lavax"
-version = "3.7.0"
+version = "3.7.1"
 priority = -1000
 server_filter_tags = {"achievement", "level"}
 
@@ -77,6 +77,27 @@ translations = {
 		
         ["Level XP cap"] = "Level XP cap",
         ["XPCapInfo"] = "Maximum XP needed to gain a level up",
+		
+		["healthGain"] = "Health Gain",
+        ["healthGainInfo"] = "How much health for 1 level point",
+		
+		["sanityGain"] = "Sanity Gain",
+        ["sanityGainInfo"] = "How much sanity for 1 level point",
+		
+		["hungerGain"] = "Hunger Gain",
+        ["hungerGainInfo"] = "How much hunger for 1 level point",
+		
+		["speedGain"] = "Speed Gain",
+        ["speedGainInfo"] = "How much speed for 1 level point",
+		
+		["absorbGain"] = "Defense Gain",
+        ["absorbGainInfo"] = "How much defense for 1 level point",
+		
+		["damageGain"] = "Damage Gain",
+        ["damageGainInfo"] = "How much damage for 1 level point",
+		
+		["insulationGain"] = "Insulation Gain",
+        ["insulationGainInfo"] = "How much insulation for 1 level point",
 
         ["Level Up Points"] = "Level Up Points",
         ["LevelPointsInfo"] = "Points awarded after leveling up",
@@ -159,6 +180,14 @@ if language == nil then language = translations["en"] end
 configuration_options =
 {
 	{
+		name = "",
+		label = "GENERAL SETTINGS",
+		options =	{
+						{description = "", data = 0},
+					},
+		default = 0,
+	},
+	{
         name = "SYSTEM",
         label = language["Active Systems"],
         options =   {
@@ -186,49 +215,19 @@ configuration_options =
 						{description = "French", data = "fr"},
 						--{description = "Polish", data = "pl"},
                     },
-        default = "e",
+        default = "en",
         hover = language["LanguageInfo"],
     },
 	{
-        name = "MULT",
-        label = language["Perk Cost Multiplier"],
+        name = "GEAR",
+        label = language["Starting Gear"],
         options =   {
-						{description = "0.5x", data = 0.5},
-						{description = "0.75x", data = 0.75},
-                        {description = "1.0x", data = 1},
-                        {description = "1.5x", data = 1.5},
-						{description = "2.0x", data = 2.0},
-						{description = "2.5x", data = 2.5},
+						{description = language["Nothing"], data = "nothing"},
+                        {description = language["Fighter"], data = "fight"},
+                        {description = language["Survivalist"], data = "survive"},
                     },
-        default = 1,
-		hover = language["MultInfo"],
-    },
-	{
-        name = "EXPMULT",
-        label = language["XP Multiplier"],
-        options =   {
-						{description = "0.5x", data = 0.5},
-						{description = "0.75x", data = 0.75},
-                        {description = "1.0x", data = 1},
-                        {description = "1.25x", data = 1.25},
-						{description = "1.5x", data = 1.5},
-						{description = "2.0x", data = 2.0},
-                    },
-        default = 1,
-		hover = language["XPInfo"],
-    },
-	{
-        name = "HIDEPERK",
-        label = language["Disable Perk Categories"],
-        options =   {
-						{description = language["None"], data = "none"},
-						{description = language["Abilities"], data = "ab"},
-						{description = language["Crafting"], data = "cr"},
-						{description = language["Abil. and Craft."], data = "abcr"},
-
-                    },
-        default = "none",
-		hover = language["PerkInfo"],
+        default = "nothing",
+		hover = language["StartGearInfo"],
     },
 	{
         name = "REFUND",
@@ -253,40 +252,6 @@ configuration_options =
 		hover = language["HealthInfo"],
     },
 	{
-        name = "COSTRAISE",
-        label = language["Raising Perk Cost"],
-        options =   {
-                        {description = language["Enabled"], data = true},
-                        {description = language["Disabled"], data = false},
-                    },
-        default = true,
-		hover = language["PerkCostInfo"],
-    },
-	{
-        name = "GEAR",
-        label = language["Starting Gear"],
-        options =   {
-						{description = language["Nothing"], data = "nothing"},
-                        {description = language["Fighter"], data = "fight"},
-                        {description = language["Survivalist"], data = "survive"},
-                    },
-        default = "nothing",
-		hover = language["StartGearInfo"],
-    },
-	{
-        name = "PLAYS",
-        label = language["Achievement Repeat"],
-        options =   {
-						{description = "0", data = 0},
-                        {description = "1", data = 1},
-                        {description = "2", data = 2},
-						{description = "3", data = 3},
-						{description = language["Unlimited"], data = 999},
-                    },
-        default = 1,
-        hover = language["RepeatInfo"],
-    },
-	{
         name = "NOAWARDS",
         label = language["NoAwards"],
         options =   {
@@ -297,6 +262,14 @@ configuration_options =
 		hover = language["NoAwardsInfo"],
     },
 	{
+		name = "",
+		label = "LEVEL SETTINGS",
+		options =	{
+						{description = "", data = 0},
+					},
+		default = 0,
+	},
+	{
         name = "LEVELXP",
         label = language["Level XP cap"],
         options =   {
@@ -305,14 +278,33 @@ configuration_options =
 						{description = "2000", data = 2000},
                         {description = "3000", data = 3000},
                         {description = "4000", data = 4000},
+						{description = "10000", data = 10000},
                     },
         default = 2000,
         hover = language["XPCapInfo"],
     },
 	{
+        name = "EXPMULT",
+        label = language["XP Multiplier"],
+        options =   {
+						{description = "0.25x", data = 0.25},
+						{description = "0.5x", data = 0.5},
+						{description = "0.75x", data = 0.75},
+                        {description = "1.0x", data = 1},
+                        {description = "1.25x", data = 1.25},
+						{description = "1.5x", data = 1.5},
+						{description = "2.0x", data = 2.0},
+						{description = "3.0x", data = 3.0},
+						{description = "5.0x", data = 5.0},
+                    },
+        default = 1,
+		hover = language["XPInfo"],
+    },
+	{
         name = "LEVELPOINTS",
         label = language["Level Up Points"],
         options =   {
+						{description = "0", data = 0},
 						{description = "1", data = 1},
 						{description = "2", data = 2},
                         {description = "3", data = 3},
@@ -321,6 +313,96 @@ configuration_options =
                     },
         default = 3,
         hover = language["LevelPointsInfo"],
+    },
+	{
+        name = "HEALTHGAIN",
+        label = language["healthGain"],
+        options =   {
+						{description = "1", data = 1},
+						{description = "2", data = 2},
+                        {description = "3", data = 3},
+                        {description = "4", data = 4},
+						{description = "5", data = 5},
+                    },
+        default = 3,
+        hover = language["healthGainInfo"],
+    },
+	{
+        name = "SANITYGAIN",
+        label = language["sanityGain"],
+        options =   {
+						{description = "1", data = 1},
+						{description = "2", data = 2},
+                        {description = "3", data = 3},
+                        {description = "4", data = 4},
+						{description = "5", data = 5},
+                    },
+        default = 3,
+        hover = language["sanityGainInfo"],
+    },
+	{
+        name = "HUNGERGAIN",
+        label = language["hungerGain"],
+        options =   {
+						{description = "1", data = 1},
+						{description = "2", data = 2},
+                        {description = "3", data = 3},
+                        {description = "4", data = 4},
+						{description = "5", data = 5},
+                    },
+        default = 3,
+        hover = language["hungerGainInfo"],
+    },
+	{
+        name = "SPEEDGAIN",
+        label = language["speedGain"],
+        options =   {
+						{description = "0.25%", data = 0.0025},
+						{description = "0.5%", data = 0.005},
+						{description = "1.0%", data = 0.01},
+                        {description = "1.5%", data = 0.015},
+                        {description = "2.0%", data = 0.02},
+                    },
+        default = 0.01,
+        hover = language["speedGainInfo"],
+    },
+	{
+        name = "ABSORBGAIN",
+        label = language["absorbGain"],
+        options =   {
+						{description = "0.25%", data = 0.0025},
+						{description = "0.5%", data = 0.005},
+						{description = "1.0%", data = 0.01},
+                        {description = "1.5%", data = 0.015},
+                        {description = "2.0%", data = 0.02},
+                    },
+        default = 0.01,
+        hover = language["absorbGainInfo"],
+    },
+	{
+        name = "DAMAGEGAIN",
+        label = language["damageGain"],
+        options =   {
+						{description = "0.25%", data = 0.0025},
+						{description = "0.5%", data = 0.005},
+						{description = "1.0%", data = 0.01},
+                        {description = "1.5%", data = 0.015},
+                        {description = "2.0%", data = 0.02},
+                    },
+        default = 0.01,
+        hover = language["damageGainInfo"],
+    },
+	{
+        name = "INSULATIONGAIN",
+        label = language["insulationGain"],
+        options =   {
+						{description = "5", data = 5},
+						{description = "7", data = 7},
+                        {description = "10", data = 10},
+						{description = "15", data = 15},
+                    },
+        default = 10,
+        hover = language["insulationGainInfo"],
     },
 	{
         name = "FOODXP",
@@ -371,6 +453,64 @@ configuration_options =
                     },
         default = true,
 		hover = language["WorkXPInfo"],
+    },
+	{
+		name = "",
+		label = "ACHIEVEM. SETTINGS",
+		options =	{
+						{description = "", data = 0},
+					},
+		default = 0,
+	},
+	{
+        name = "MULT",
+        label = language["Perk Cost Multiplier"],
+        options =   {
+						{description = "0.5x", data = 0.5},
+						{description = "0.75x", data = 0.75},
+                        {description = "1.0x", data = 1},
+                        {description = "1.5x", data = 1.5},
+						{description = "2.0x", data = 2.0},
+						{description = "3.0x", data = 3.0},
+                    },
+        default = 1,
+		hover = language["MultInfo"],
+    },
+	{
+        name = "HIDEPERK",
+        label = language["Disable Perk Categories"],
+        options =   {
+						{description = language["None"], data = "none"},
+						{description = language["Abilities"], data = "ab"},
+						{description = language["Crafting"], data = "cr"},
+						{description = language["Abil. and Craft."], data = "abcr"},
+
+                    },
+        default = "none",
+		hover = language["PerkInfo"],
+    },
+	{
+        name = "COSTRAISE",
+        label = language["Raising Perk Cost"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+		hover = language["PerkCostInfo"],
+    },
+	{
+        name = "PLAYS",
+        label = language["Achievement Repeat"],
+        options =   {
+						{description = "0", data = 0},
+                        {description = "1", data = 1},
+                        {description = "2", data = 2},
+						{description = "3", data = 3},
+						{description = language["Unlimited"], data = 999},
+                    },
+        default = 1,
+        hover = language["RepeatInfo"],
     },
 	{
         name = "MANDRAKEBOI",

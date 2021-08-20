@@ -281,7 +281,7 @@ function levelsystem:speeduplevel(inst)
 		self.attributepointsspent = self.attributepointsspent + self.speedcost
 		self:attributepointDoDelta(-self.speedcost)
 		local currentSpeedMult = inst.components.locomotor:GetExternalSpeedMultiplier(inst,"speedUpgrade")
-		currentSpeedMult = currentSpeedMult + 0.01
+		currentSpeedMult = currentSpeedMult + speedGain
 		inst.components.locomotor:SetExternalSpeedMultiplier(inst,"speedUpgrade", currentSpeedMult)
 		self.speedcost = math.min(3,1 + math.floor(self.speedupamount/levelcoststep["speed"]))
         self:onlevelup(inst)
@@ -294,7 +294,7 @@ function levelsystem:damageuplevel(inst)
 		self.attributepointsspent = self.attributepointsspent + self.damagecost
 		self:attributepointDoDelta(-self.damagecost)
 		local currentDamageMult = inst.components.combat.externaldamagemultipliers:CalculateModifierFromSource("damageUpgrade")
-		currentDamageMult = currentDamageMult + 0.01
+		currentDamageMult = currentDamageMult + damageGain
 		inst.components.combat.externaldamagemultipliers:SetModifier("damageUpgrade", currentDamageMult)
 		self.damagecost = math.min(3,1 + math.floor(self.damageupamount/levelcoststep["damage"]))
         self:onlevelup(inst)
@@ -310,7 +310,7 @@ function levelsystem:absorbuplevel(inst)
         self.absorbupamount = self.absorbupamount + 1
 		self.attributepointsspent = self.attributepointsspent + self.absorbcost
 		self:attributepointDoDelta(-self.absorbcost)
-		currentAbsorbAdd = currentAbsorbAdd + 0.01
+		currentAbsorbAdd = currentAbsorbAdd + absorbGain
 		inst.components.health.externalabsorbmodifiers:SetModifier("absorbUpgrade", currentAbsorbAdd)
 		self.absorbcost = math.min(3,1 + math.floor(self.absorbupamount/levelcoststep["absorb"]))
         self:onlevelup(inst)
@@ -383,19 +383,19 @@ end
 function levelsystem:resetbuff(inst)
     -- resetting the other stats is done in onupdate
 	local currentDamageMult = inst.components.combat.externaldamagemultipliers:CalculateModifierFromSource("damageUpgrade")
-	currentDamageMult = currentDamageMult - self.damageupamount*0.01
+	currentDamageMult = currentDamageMult - self.damageupamount*damageGain
 	inst.components.combat.externaldamagemultipliers:SetModifier("damageUpgrade", currentDamageMult)
 	
 	local currentAbsorbAdd = inst.components.health.externalabsorbmodifiers:CalculateModifierFromSource("absorbUpgrade")
-	currentAbsorbAdd = currentAbsorbAdd - self.absorbupamount*0.01
+	currentAbsorbAdd = currentAbsorbAdd - self.absorbupamount*absorbGain
 	inst.components.health.externalabsorbmodifiers:SetModifier("absorbUpgrade", currentAbsorbAdd)
 	
 	local currentSpeedMult = inst.components.locomotor:GetExternalSpeedMultiplier(inst,"speedUpgrade")
-	currentSpeedMult = currentSpeedMult - self.speedupamount*0.01
+	currentSpeedMult = currentSpeedMult - self.speedupamount*speedGain
 	inst.components.locomotor:SetExternalSpeedMultiplier(inst,"speedUpgrade", currentSpeedMult)
 	
-	inst.components.temperature.inherentsummerinsulation = inst.components.temperature.inherentsummerinsulation - 5*self.insulationsummerupamount
-	inst.components.temperature.inherentinsulation = inst.components.temperature.inherentinsulation - 5*self.insulationupamount
+	inst.components.temperature.inherentsummerinsulation = inst.components.temperature.inherentsummerinsulation - insulationGain*self.insulationsummerupamount
+	inst.components.temperature.inherentinsulation = inst.components.temperature.inherentinsulation - insulationGain*self.insulationupamount
 
 end
 
@@ -452,13 +452,13 @@ function levelsystem:Init(inst)
 	
 	inst:DoTaskInTime(1, function()
 		local currentDamageMult = inst.components.combat.externaldamagemultipliers:CalculateModifierFromSource("damageUpgrade")
-		currentDamageMult = currentDamageMult + self.damageupamount*0.01
+		currentDamageMult = currentDamageMult + self.damageupamount*damageGain
 		inst.components.combat.externaldamagemultipliers:SetModifier("damageUpgrade", currentDamageMult)
 		local currentAbsorbAdd = inst.components.health.externalabsorbmodifiers:CalculateModifierFromSource("absorbUpgrade")
-		currentAbsorbAdd = currentAbsorbAdd + self.absorbupamount*0.01
+		currentAbsorbAdd = currentAbsorbAdd + self.absorbupamount*absorbGain
 		inst.components.health.externalabsorbmodifiers:SetModifier("absorbUpgrade", currentAbsorbAdd)
 		local currentSpeedMult = inst.components.locomotor:GetExternalSpeedMultiplier(inst,"speedUpgrade")
-		currentSpeedMult = currentSpeedMult + self.speedupamount*0.01
+		currentSpeedMult = currentSpeedMult + self.speedupamount*speedGain
 		inst.components.locomotor:SetExternalSpeedMultiplier(inst,"speedUpgrade", currentSpeedMult)
 	end)
 
@@ -480,7 +480,7 @@ function levelsystem:onupdate(inst)
 	if self.hungerupamount ~= self.levelhungerup then
         local hunger_percent = inst.components.hunger:GetPercent()
 		local addhunger = self.hungerupamount - self.levelhungerup
-        inst.components.hunger:SetMax(inst.components.hunger.max + addhunger)
+        inst.components.hunger:SetMax(inst.components.hunger.max + addhunger * hungerGain)
         inst.components.hunger:SetPercent(hunger_percent)
 		self.levelhungerup = self.hungerupamount
 		self.hungermax = inst.components.hunger.max
@@ -488,7 +488,7 @@ function levelsystem:onupdate(inst)
 	--in case hunger changes due to other events like when WX eats gears. Upgrades have to be applied again
 	if self.hungermax ~= inst.components.hunger.max then
 		local hunger_percent = inst.components.hunger:GetPercent()
-        inst.components.hunger:SetMax(inst.components.hunger.max + self.hungerupamount + achievementhungerup)
+        inst.components.hunger:SetMax(inst.components.hunger.max + self.hungerupamount * hungerGain + achievementhungerup)
         inst.components.hunger:SetPercent(hunger_percent)
 		self.hungermax = inst.components.hunger.max
 	end
@@ -506,7 +506,7 @@ function levelsystem:onupdate(inst)
 	if self.sanityupamount ~= self.levelsanityup then
         local sanity_percent = inst.components.sanity:GetPercent()
 		local addsanity = self.sanityupamount - self.levelsanityup
-        inst.components.sanity:SetMax(inst.components.sanity.max + addsanity)
+        inst.components.sanity:SetMax(inst.components.sanity.max + addsanity * sanityGain)
         inst.components.sanity:SetPercent(sanity_percent)
 		self.levelsanityup = self.sanityupamount
 		self.sanitymax = inst.components.sanity.max
@@ -514,7 +514,7 @@ function levelsystem:onupdate(inst)
 	--in case sanity changes due to other events like when WX eats gears. Upgrades have to be applied again
 	if self.sanitymax ~= inst.components.sanity.max then
 		local sanity_percent = inst.components.sanity:GetPercent()
-        inst.components.sanity:SetMax(inst.components.sanity.max + self.sanityupamount + achievementsanityup)
+        inst.components.sanity:SetMax(inst.components.sanity.max + self.sanityupamount * sanityGain + achievementsanityup)
         inst.components.sanity:SetPercent(sanity_percent)
 		self.sanitymax = inst.components.sanity.max
 	end
@@ -532,7 +532,7 @@ function levelsystem:onupdate(inst)
 	if self.healthupamount ~= self.levelhealthup then
         local health_percent = inst.components.health:GetPercent()
 		local addhealth = self.healthupamount - self.levelhealthup
-		inst.components.health.maxhealth = inst.components.health.maxhealth + addhealth
+		inst.components.health.maxhealth = inst.components.health.maxhealth + addhealth * healthGain
 		inst.components.health:SetPercent(health_percent)
 		self.levelhealthup = self.healthupamount
 		self.healthmax = inst.components.health.maxhealth
@@ -540,7 +540,7 @@ function levelsystem:onupdate(inst)
 	--in case health changes due to other events like when WX eats gears. Upgrades have to be applied again
 	if self.healthmax ~= inst.components.health.maxhealth then
 		local health_percent = inst.components.health:GetPercent()
-        inst.components.health.maxhealth = inst.components.health.maxhealth + self.healthupamount + achievementhealthup
+        inst.components.health.maxhealth = inst.components.health.maxhealth + self.healthupamount * healthGain + achievementhealthup
         inst.components.health:SetPercent(health_percent)
 		self.healthmax = inst.components.health.maxhealth
 	end
@@ -573,22 +573,22 @@ function levelsystem:onupdate(inst)
 	--Damage
 	self.damagemax = 100*inst.components.combat.damagemultiplier*inst.components.combat.externaldamagemultipliers:Get()
 	
-	if self.insulationwinter ~= self.insulationupamount*5 and self.insulationupamount > 0 then
+	if self.insulationwinter ~= self.insulationupamount*insulationGain and self.insulationupamount > 0 then
 		if self.insulationwinter == -1 then 
-			inst.components.temperature.inherentinsulation = inst.components.temperature.inherentinsulation + self.insulationupamount*5
+			inst.components.temperature.inherentinsulation = inst.components.temperature.inherentinsulation + self.insulationupamount*insulationGain
 		else
-			inst.components.temperature.inherentinsulation = inst.components.temperature.inherentinsulation + 5
+			inst.components.temperature.inherentinsulation = inst.components.temperature.inherentinsulation + insulationGain
 		end
-		self.insulationwinter = self.insulationupamount*5
+		self.insulationwinter = self.insulationupamount*insulationGain
     end
 	
-	if self.insulationsummer ~= self.insulationsummerupamount*5 and self.insulationsummerupamount > 0 then
+	if self.insulationsummer ~= self.insulationsummerupamount*insulationGain and self.insulationsummerupamount > 0 then
 		if self.insulationsummer == -1 then
-			inst.components.temperature.inherentsummerinsulation = inst.components.temperature.inherentsummerinsulation + self.insulationsummerupamount*5
+			inst.components.temperature.inherentsummerinsulation = inst.components.temperature.inherentsummerinsulation + self.insulationsummerupamount*insulationGain
 		else 
-			inst.components.temperature.inherentsummerinsulation = inst.components.temperature.inherentsummerinsulation + 5	
+			inst.components.temperature.inherentsummerinsulation = inst.components.temperature.inherentsummerinsulation + insulationGain	
 		end
-		self.insulationsummer = self.insulationsummerupamount*5  
+		self.insulationsummer = self.insulationsummerupamount*insulationGain  
     end
 	
 	local winter, summer = inst.components.temperature:GetInsulation()

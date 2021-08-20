@@ -30,6 +30,14 @@ _G.UNLOCKXP = GetModConfigData('UNLOCKXP')
 _G.KILLXP = GetModConfigData('KILLXP')
 _G.WORKXP = GetModConfigData('WORKXP')
 
+_G.HEALTHGAIN = GetModConfigData('HEALTHGAIN')
+_G.SANITYGAIN = GetModConfigData('SANITYGAIN')
+_G.HUNGERGAIN = GetModConfigData('HUNGERGAIN')
+_G.SPEEDGAIN = GetModConfigData('SPEEDGAIN')
+_G.ABSORBGAIN = GetModConfigData('ABSORBGAIN')
+_G.DAMAGEGAIN = GetModConfigData('DAMAGEGAIN')
+_G.INSULATIONGAIN = GetModConfigData('INSULATIONGAIN')
+
 require 'system/balance'
 require "system/rpc"
 
