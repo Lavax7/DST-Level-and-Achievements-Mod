@@ -1467,9 +1467,11 @@ function uiachievement:build()
 end
 
 -- Achievements Categories
-local perk_attributes;
-local perk_abilities;
-local perk_crafting;
+local perk_attributes = 0;
+local perk_abilities = 0;
+local perk_crafting = 0;
+
+local modnameActual = KnownModIndex:GetModActualName("Achievements and Level System")
 
 function uiachievement:perk_build()
 	local x = 1
@@ -1503,11 +1505,13 @@ function uiachievement:perk_build()
 end
 
 function uiachievement:build_perkpage(j,i, adaptivecost)
+	if self.coinlist[i] == nil then return end
+	
 	local x = -325 + ((j-1)%3)*320 
 	local y = 80 - (105 * (math.ceil(j/3) + 1))
 
 	--if math.ceil(j/3) ~= j/3 then x = -240 else x = x + 240*j/3 end
-
+	
 	local currentlyObtained = self.coinlist[i].current
 	local active = ""
 	if currentlyObtained > 0 then
@@ -1554,7 +1558,7 @@ function uiachievement:build_perkpage(j,i, adaptivecost)
 	self.coinlistbutton[i].cost:SetPosition(90, 28, 0)
 	self.coinlistbutton[i].cost:SetHAlign(ANCHOR_RIGHT)
 	self.coinlistbutton[i].cost:SetRegionSize(50,30)
-	if adaptivecost then
+	if adaptivecost and self.coinlist[i].cost then
 		self.coinlistbutton[i].cost:SetString("-"..self.coinlist[i].cost)
 	else
 		self.coinlistbutton[i].cost:SetString("-"..allachiv_coinuse[self.coinlist[i].name])
@@ -2222,194 +2226,375 @@ function uiachievement:loadlist()
 end
 
 function uiachievement:loadcoinlist()
-	-- Achievements Categories
-	perk_attributes = 13
-	perk_abilities = 18
-	perk_crafting = 8
-	self.coinlist = {
-		{
-			name = "hungerup",
-			current = self.owner.currenthungerup:value(),
-			cost = self.owner.currenthungerachivcost:value(),
-		},
-		{
-			name = "sanityup",
-			current = self.owner.currentsanityup:value(),
-			cost = self.owner.currentsanityachivcost:value(),
-		},
-		{
+	self.coinlist = {}
+	perk_attributes = 0;
+	perk_abilities = 0;
+	perk_crafting = 0;
+	if GetModConfigData('hungerup',modnameActual) then
+		table.insert(self.coinlist, 
+			{	
+				name = "hungerup",
+				current = self.owner.currenthungerup:value(),
+				cost = self.owner.currenthungerachivcost:value(),
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('sanityup',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+				name = "sanityup",
+				current = self.owner.currentsanityup:value(),
+				cost = self.owner.currentsanityachivcost:value(),
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('healthup',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "healthup",
 			current = self.owner.currenthealthup:value(),
 			cost = self.owner.currenthealthachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('hungerrateup',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "hungerrateup",
 			current = self.owner.currenthungerrateup:value(),
 			cost = self.owner.currenthungerrateachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('sanityregen',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "sanityregen",
 			current = self.owner.currentsanityregen:value(),
 			cost = self.owner.currentsanityregenachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('healthregen',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "healthregen",
 			current = self.owner.currenthealthregen:value(),
 			cost = self.owner.currenthealthregenachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('damageup',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "damageup",
 			current = self.owner.currentdamageup:value(),
 			cost = self.owner.currentdamageachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('crit',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "crit",
 			current = self.owner.currentcrit:value(),
 			cost = self.owner.currentcritachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('lifesteal',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "lifesteal",
 			current = self.owner.currentlifestealup:value(),
 			cost = self.owner.currentlifestealcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('speedup',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "speedup",
 			current = self.owner.currentspeedup:value(),
 			cost = self.owner.currentspeedachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('absorbup',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "absorbup",
 			current = self.owner.currentabsorbup:value(),
 			cost = self.owner.currentabsorbachivcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('fireflylightup',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "fireflylightup",
 			current = self.owner.currentfireflylightup:value(),
 			cost = self.owner.currentfireflylightcost:value(),
-		},
-		{
+			})
+		perk_attributes = perk_attributes + 1
+	end
+	
+	if GetModConfigData('scale',modnameActual) then
+		table.insert(self.coinlist, 
+			{
 			name = "scale",
 			current = self.owner.currentscaleup:value(),
 			cost = self.owner.currentscalecost:value(),
-		},
-		{
-			name = "krampusxmas",
-			current = self.owner.currentkrampusxmas:value(),
-		},
-		{
-			name = "goodman",
-			current = self.owner.currentgoodman:value(),
-		},
-		{
-			name = "animallover",
-			current = self.owner.currentanimallover:value(),
-		},
-		{
-			name = "fishmaster",
-			current = self.owner.currentfishmaster:value(),
-		},
-		{
-			name = "chopmaster",
-			current = self.owner.currentchopmaster:value(),
-		},
-		{
-			name = "minemaster",
-			current = self.owner.currentminemaster:value(),
-		},
-		{
-			name = "fastworker",
-			current = self.owner.currentfastworker:value(),
-		},
-		{
-			name = "cookmaster",
-			current = self.owner.currentcookmaster:value(),
-		},
-		{
-			name = "pickmaster",
-			current = self.owner.currentpickmaster:value(),
-		},
-		{
-			name = "nomoist",
-			current = self.owner.currentnomoist:value(),
-		},
-		{
-			name = "icebody",
-			current = self.owner.currenticebody:value(),
-		},
-		{
-			name = "firebody",
-			current = self.owner.currentfirebody:value(),
-		},
-		{
-			name = "doubledrop",
-			current = self.owner.currentdoubledrop:value(),
-		},
-		{
-			name = "buildmaster",
-			current = self.owner.currentbuildmaster:value(),
-		},
-		{
-			name = "nanobots",
-			current = self.owner.currentnanobots:value(),
-		},
-		{
-			name = "archmage",
-			current = self.owner.currentarchmage:value(),
-		},
-		{
-			name = "refresh",
-			current = self.owner.currentrefresh:value(),
-		},
-		{
-			name = "cheatdeath",
-			current = self.owner.currentcheatdeath:value(),
-		},
-		{
-			name = "reader",
-			current = self.owner.currentreader:value(),
-		},
-		{
-			name = "supply",
-			current = self.owner.currentsupply:value(),
-		},
-		{
-			name = "masterchef",
-			current = self.owner.currentmasterchef:value(),
-		},
-		{
-			name = "engineering",
-			current = self.owner.currentengineering:value(),
-		},
-		{
-			name = "shrine",
-			current = self.owner.currentshrine:value(),
-		},
-		{
-			name = "ancientstation",
-			current = self.owner.currentancientstation:value(),
-		},
-		{
-			name = "naturalist",
-			current = self.owner.currentnaturalist:value(),
-		},
-		{
-			name = "lunarcraft",
-			current = self.owner.currentlunarcraft:value(),
-		},
-	}
-	
-	-- disable game changer
-	if not _G.GAMEBREAKER then
-		for i=#self.coinlist,1,-1 do
-		   local v = self.coinlist[i]
-		   if v.name == "nanobots" or v.name == "archmage" or v.name == "refresh" or v.name == "fireflylightup" then
-			 table.remove(self.coinlist, i)
-		   end
-		end
-		perk_attributes = perk_attributes - 1
-		perk_abilities = perk_abilities - 3
+			})
+		perk_attributes = perk_attributes + 1
 	end
 	
+	if GetModConfigData('krampusxmas',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "krampusxmas",
+			current = self.owner.currentkrampusxmas:value(),
+			})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('goodman',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "goodman",
+			current = self.owner.currentgoodman:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('animallover',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "animallover",
+			current = self.owner.currentanimallover:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('fishmaster',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "fishmaster",
+			current = self.owner.currentfishmaster:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('chopmaster',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "chopmaster",
+			current = self.owner.currentchopmaster:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('minemaster',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "minemaster",
+			current = self.owner.currentminemaster:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('fastworker',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "fastworker",
+			current = self.owner.currentfastworker:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('cookmaster',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "cookmaster",
+			current = self.owner.currentcookmaster:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('pickmaster',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "pickmaster",
+			current = self.owner.currentpickmaster:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('nomoist',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "nomoist",
+			current = self.owner.currentnomoist:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('icebody',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "icebody",
+			current = self.owner.currenticebody:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('firebody',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "firebody",
+			current = self.owner.currentfirebody:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('doubledrop',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "doubledrop",
+			current = self.owner.currentdoubledrop:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('buildmaster',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "buildmaster",
+			current = self.owner.currentbuildmaster:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('nanobots',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "nanobots",
+			current = self.owner.currentnanobots:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('archmage',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "archmage",
+			current = self.owner.currentarchmage:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('refresh',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "refresh",
+			current = self.owner.currentrefresh:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('cheatdeath',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "cheatdeath",
+			current = self.owner.currentcheatdeath:value(),
+		})
+		perk_abilities = perk_abilities + 1
+	end
+	
+	if GetModConfigData('reader',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "reader",
+			current = self.owner.currentreader:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	if GetModConfigData('supply',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "supply",
+			current = self.owner.currentsupply:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	if GetModConfigData('masterchef',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "masterchef",
+			current = self.owner.currentmasterchef:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	if GetModConfigData('engineering',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "engineering",
+			current = self.owner.currentengineering:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	if GetModConfigData('shrine',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "shrine",
+			current = self.owner.currentshrine:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	if GetModConfigData('ancientstation',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "ancientstation",
+			current = self.owner.currentancientstation:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	if GetModConfigData('naturalist',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "naturalist",
+			current = self.owner.currentnaturalist:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	if GetModConfigData('lunarcraft',modnameActual) then
+		table.insert(self.coinlist, 
+			{
+			name = "lunarcraft",
+			current = self.owner.currentlunarcraft:value(),
+		})
+		perk_crafting = perk_crafting + 1
+	end
+	
+	print(GetModConfigData('lunarcraft',modnameActual))
 end
 
 function uiachievement:updateAllStrings()

@@ -1,7 +1,7 @@
 name =
 [[Achievements and Level System]]
 description =
-[[v3.6.14
+[[v3.7.0
 Adds a achievement and leveling system to the game.
 To gain level xp eat food or kill monster.
 Spend available attribute points to upgrade your stats
@@ -10,7 +10,7 @@ Spend achievement stars to upgrade stats or unlock permanent abilities.
 If you complete all achievements you can enable multiple playthroughs in the mod configuration.
 ]]
 author = "Lavax"
-version = "3.6.14"
+version = "3.7.0"
 priority = -1000
 server_filter_tags = {"achievement", "level"}
 
@@ -50,10 +50,8 @@ translations = {
         ["Abil. and Craft."] = "Abil. and Craft.",
         ["PerkInfo"] = "Hides the Abilities and/or Crafting Tab in Achievement Rewards",
 
-        ["Game Changing Perks"] = "Game Changing Perks",
         ["Enabled"] = "Enabled",
         ["Disabled"] = "Disabled",
-        ["GameChangerInfo"] = "Disables game changing perks",
 
         ["Refund Percentage on Reset"] = "Refund Percentage on Reset",
         ["RefundInfo"] = "Choose how many points you get refunded when resetting",
@@ -110,7 +108,49 @@ translations = {
         ["No Caves"] = "No Caves",
         ["With Caves"] = "With Caves",
         ["CaveInfo"] = "Grant the cave achievements without reward if you play without caves",
-    },
+    
+		["PerkSettings"] = "PERK SETTINGS",
+		
+		["Hunger"] = "Hunger +",
+		["Sanity"] = "Sanity +",
+		["Health"] = "Health +",
+		["Hunger Rate"] = "Hunger Rate -",
+		["Sanity Regen"] = "Sanity Regen +",
+		["Health Regen"] = "Health Regen +",
+		["Damage"] = "Damage +",
+		["Critical Hit"] = "Critical Hit +",
+		["Lifesteal"] = "Lifesteal +",
+		["Scale"] = "Scale +",
+		["Speed"] = "Speed +",
+		["Defense"] = "Defense +",
+		["Christmas"] = "Christmas",
+		["Dim Light"] = "Dim Light +",
+		["Friend Zone"] = "Friend Zone",
+		["Piscator"] = "Piscator",
+		["Chainsaw"] = "Chainsaw",
+		["Garde Manger"] = "Garde Manger",
+		["Harvester"] = "Harvester",
+		["Impermeable"] = "Impermeable",
+		["Cold Resist"] = "Cold Resist",
+		["Heat Resist"] = "Heat Resist",
+		["Loot Goblin"] = "Loot Goblin",
+		["Cut Corners"] = "Cut Corners",
+		["Nanobots"] = "Nanobots",
+		["Archmage"] = "Archmage",
+		["Re.Freshness"] = "Re.Freshness",
+		["Bookworm"] = "Bookworm",
+		["Santa Klaus"] = "Santa Klaus",
+		["Cuisinier"] = "Cuisinier",
+		["Factory Worker"] = "Factory Worker",
+		["Special Events"] = "Special Events",
+		["Jackhammer"] = "Jackhammer",
+		["Swift Hands"] = "Swift Hands",
+		["Ancient Research"] = "Ancient Research",
+		["Cheat Death"] = "Cheat Death",
+		["Naturalist"] = "Naturalist",
+		["Lunar Craft"] = "Lunar Craft",
+		["Animal Whisperer"] = "Animal Whisperer",
+	},
 }
 
 language = translations[locale]
@@ -189,16 +229,6 @@ configuration_options =
                     },
         default = "none",
 		hover = language["PerkInfo"],
-    },
-	{
-        name = "GAMEBREAKER",
-        label = language["Game Changing Perks"],
-        options =   {
-						{description = language["Enabled"], data = true},
-						{description = language["Disabled"], data = false},
-                    },
-        default = true,
-		hover = language["GameChangerInfo"],
     },
 	{
         name = "REFUND",
@@ -371,5 +401,364 @@ configuration_options =
                     },
         default = true,
 		hover = language["CaveInfo"],
+    },
+	{
+		name = "",
+		label = language["PerkSettings"],
+		options =	{
+						{description = "", data = 0},
+					},
+		default = 0,
+	},
+	{
+        name = "hungerup",
+        label = language["Hunger"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "sanityup",
+        label = language["Sanity"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "healthup",
+        label = language["Health"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "hungerrateup",
+        label = language["Hunger Rate"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "sanityregen",
+        label = language["Sanity Regen"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "healthregen",
+        label = language["Health Regen"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "damageup",
+        label = language["Damage"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "crit",
+        label = language["Critical Hit"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "lifesteal",
+        label = language["Lifesteal"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "speedup",
+        label = language["Speed"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "absorbup",
+        label = language["Defense"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "fireflylightup",
+        label = language["Dim Light"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "scale",
+        label = language["Scale"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "krampusxmas",
+        label = language["Christmas"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "goodman",
+        label = language["Friend Zone"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "animallover",
+        label = language["Animal Whisperer"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "fishmaster",
+        label = language["Piscator"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "chopmaster",
+        label = language["Chainsaw"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "minemaster",
+        label = language["Jackhammer"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "fastworker",
+        label = language["Swift Hands"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "cookmaster",
+        label = language["Garde Manger"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "pickmaster",
+        label = language["Harvester"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "nomoist",
+        label = language["Impermeable"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "icebody",
+        label = language["Cold Resist"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "firebody",
+        label = language["Heat Resist"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "doubledrop",
+        label = language["Loot Goblin"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "buildmaster",
+        label = language["Cut Corners"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "nanobots",
+        label = language["Nanobots"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "archmage",
+        label = language["Archmage"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "refresh",
+        label = language["Re.Freshness"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "cheatdeath",
+        label = language["Cheat Death"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "reader",
+        label = language["Bookworm"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "supply",
+        label = language["Santa Klaus"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "masterchef",
+        label = language["Cuisinier"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "engineering",
+        label = language["Factory Worker"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "shrine",
+        label = language["Special Events"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "ancientstation",
+        label = language["Ancient Research"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "naturalist",
+        label = language["Naturalist"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
+    },
+	{
+        name = "lunarcraft",
+        label = language["Lunar Craft"],
+        options =   {
+                        {description = language["Enabled"], data = true},
+                        {description = language["Disabled"], data = false},
+                    },
+        default = true,
     },
 }

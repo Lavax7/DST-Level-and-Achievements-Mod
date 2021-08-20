@@ -2,6 +2,10 @@ ToDo:
 -Wigfrid eat achivement check
 -hunger etc from level +3 insulation +10 -> add as balance variable
 -limit PlaySound on coin or levelpoint use to the player
+-no damage upgrade mod config
+
+3.7.0 Changes:
+Each perk can now be enabled / disabled in the mod config
 
 3.6.14 Changes:
 Cheat Death no longer explodes gunpowder around you.
