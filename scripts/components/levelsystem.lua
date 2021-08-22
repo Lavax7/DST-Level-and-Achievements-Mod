@@ -564,9 +564,11 @@ function levelsystem:onupdate(inst)
 				end
 			end
 	if itemabsorb == 0 then
-		self.absorbmax = 100*(inst.components.health.externalabsorbmodifiers:Get() + inst.components.health.playerabsorb + inst.components.health.absorb)
+		self.absorbmax = (inst.components.health.externalabsorbmodifiers:Get() + inst.components.health.playerabsorb)
+		self.absorbmax = 100*(self.absorbmax +  (1-self.absorbmax) * inst.components.health.absorb)
 	else
-		self.absorbmax = (inst.components.health.externalabsorbmodifiers:Get() + inst.components.health.playerabsorb + inst.components.health.absorb)
+		self.absorbmax = (inst.components.health.externalabsorbmodifiers:Get() + inst.components.health.playerabsorb)
+		self.absorbmax = (self.absorbmax +  (1-self.absorbmax) * inst.components.health.absorb)
 		self.absorbmax = 100*(itemabsorb + (1-itemabsorb)*self.absorbmax)
 	end
 	

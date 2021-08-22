@@ -3,6 +3,10 @@ ToDo:
 -hunger etc from level +3 insulation +10 -> add as balance variable
 -limit PlaySound on coin or levelpoint use to the player
 
+3.7.1a Changes:
+Fixed defense stat display if character has internal armor
+Fixed error with teleportato mod
+
 3.7.1 Changes:
 The level system is now fully configurable in the mod config
 Structured the mod config options

@@ -2593,8 +2593,6 @@ function uiachievement:loadcoinlist()
 		})
 		perk_crafting = perk_crafting + 1
 	end
-	
-	print(GetModConfigData('lunarcraft',modnameActual))
 end
 
 function uiachievement:updateAllStrings()
