@@ -963,7 +963,7 @@ if GLOBAL.TUNING.TELEPORTATOMOD then
 					require 'translations/translation_de'
 				elseif _G.LANGUAGE == "vi" then
 					require 'translations/translation_vi'
-				elseif _G.LANGUAGE == "vi" then
+				elseif _G.LANGUAGE == "pl" then
 					require 'translations/translation_pl'
 				elseif _G.LANGUAGE == "fr" then
 					require 'translations/translation_fr'

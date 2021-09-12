@@ -2230,6 +2230,7 @@ function uiachievement:loadcoinlist()
 	perk_attributes = 0;
 	perk_abilities = 0;
 	perk_crafting = 0;
+	modnameActual = KnownModIndex:GetModActualName("Achievements and Level System")
 	if GetModConfigData('hungerup',modnameActual) then
 		table.insert(self.coinlist, 
 			{	
