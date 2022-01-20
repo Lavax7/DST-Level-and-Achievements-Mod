@@ -11,6 +11,11 @@ function BlinkStaff:SetFX(front, back)
     self.backfx = back
 end
 
+function BlinkStaff:SetSoundFX(presound, postsound)
+    self.presound = presound or self.presound
+    self.postsound = postsound or self.postsound
+end
+
 function BlinkStaff:SpawnEffect(inst)
     local x, y, z = inst.Transform:GetWorldPosition()
     if self.backfx ~= nil then
