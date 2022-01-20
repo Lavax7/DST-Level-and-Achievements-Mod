@@ -45,17 +45,15 @@ local function OnBlinked(caster, self, dpt)
     elseif caster.sg.statemem.onstopblinking ~= nil then
         caster.sg.statemem.onstopblinking()
     end
-	
-	local pt = dpt:GetPosition()
-	if pt ~= nil and TheWorld.Map:IsPassableAtPoint(pt:Get()) and not TheWorld.Map:IsGroundTargetBlocked(pt) then
-	    caster.Physics:Teleport(pt:Get())
-	end
-	
+    local pt = dpt:GetPosition()
+    if pt ~= nil and TheWorld.Map:IsPassableAtPoint(pt:Get()) and not TheWorld.Map:IsGroundTargetBlocked(pt) then
+        caster.Physics:Teleport(pt:Get())
+    end
     self:SpawnEffect(caster)
     if self.postsound ~= "" then
         caster.SoundEmitter:PlaySound(self.postsound)
     end
-    
+
     if caster.components.allachivevent.teleport ~= true then
         caster.components.allachivevent.teleportamount = caster.components.allachivevent.teleportamount + 1
         if caster.components.allachivevent.teleportamount >= allachiv_eventdata["teleport"] then
@@ -80,13 +78,13 @@ function BlinkStaff:Blink(pt, caster)
     end
 
     if caster.sg == nil then
-		caster:Hide()
-		if caster.DynamicShadow ~= nil then
-			caster.DynamicShadow:Enable(false)
-		end
-		if caster.components.health ~= nil then
-			caster.components.health:SetInvincible(true)
-		end
+        caster:Hide()
+        if caster.DynamicShadow ~= nil then
+            caster.DynamicShadow:Enable(false)
+        end
+        if caster.components.health ~= nil then
+            caster.components.health:SetInvincible(true)
+        end
     elseif caster.sg.statemem.onstartblinking ~= nil then
         caster.sg.statemem.onstartblinking()
     end
