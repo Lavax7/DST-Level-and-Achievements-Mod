@@ -45,10 +45,12 @@ local function OnBlinked(caster, self, dpt)
     elseif caster.sg.statemem.onstopblinking ~= nil then
         caster.sg.statemem.onstopblinking()
     end
+	
 	local pt = dpt:GetPosition()
 	if pt ~= nil and TheWorld.Map:IsPassableAtPoint(pt:Get()) and not TheWorld.Map:IsGroundTargetBlocked(pt) then
 	    caster.Physics:Teleport(pt:Get())
 	end
+	
     self:SpawnEffect(caster)
     if self.postsound ~= "" then
         caster.SoundEmitter:PlaySound(self.postsound)
