@@ -4,6 +4,8 @@ local BlinkStaff = Class(function(self, inst)
     self.blinktask = nil
     self.frontfx = nil
     self.backfx = nil
+        
+    self:ResetSoundFX()
 end)
 
 function BlinkStaff:SetFX(front, back)
@@ -14,6 +16,11 @@ end
 function BlinkStaff:SetSoundFX(presound, postsound)
     self.presound = presound or self.presound
     self.postsound = postsound or self.postsound
+end
+
+function BlinkStaff:ResetSoundFX()
+    self.presound = "dontstarve/common/staff_blink"
+    self.postsound = "dontstarve/common/staff_blink"
 end
 
 function BlinkStaff:SpawnEffect(inst)
