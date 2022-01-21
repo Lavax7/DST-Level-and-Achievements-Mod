@@ -3,6 +3,9 @@ ToDo:
 -hunger etc from level +3 insulation +10 -> add as balance variable
 -limit PlaySound on coin or levelpoint use to the player
 
+3.7.1c Changes:
+Added a pull request by Xenith to fix errors with the blinkstaff
+
 3.7.1b Changes:
 Fixed a bug where perks are not visible
 
