@@ -1215,6 +1215,10 @@ function allachivevent:intogamefn(inst)
 				self.sleepsiesta = true
 				self.sleepsiestaamount = 12
 			end
+			if inst.prefab == "wanda" then
+				self.tooyoung = true
+				self.rot = true
+			end
 			--Meatatarian case -> remove the veggie dishes from the eatlist.
 			if inst.prefab == "wathgrithr" then
 				self:updateMeatatarianFoodList()
