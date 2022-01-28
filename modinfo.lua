@@ -10,7 +10,7 @@ Spend achievement stars to upgrade stats or unlock permanent abilities.
 If you complete all achievements you can enable multiple playthroughs in the mod configuration.
 ]]
 author = "Lavax"
-version = "3.7.1c"
+version = "3.7.1d"
 priority = -1000
 server_filter_tags = {"achievement", "level"}
 
