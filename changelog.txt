@@ -9,6 +9,9 @@ ToDo:
 Autocomplete 2 achievements for Wanda
 
 
+3.7.1c Changes:
+Added a pull request by Xenith to fix errors with the blinkstaff
+
 3.7.1b Changes:
 Fixed a bug where perks are not visible
 

@@ -1,7 +1,7 @@
 name =
 [[Achievements and Level System]]
 description =
-[[v3.7.1b
+[[v3.7.1c
 Adds a achievement and leveling system to the game.
 To gain level xp eat food or kill monster.
 Spend available attribute points to upgrade your stats
@@ -10,7 +10,7 @@ Spend achievement stars to upgrade stats or unlock permanent abilities.
 If you complete all achievements you can enable multiple playthroughs in the mod configuration.
 ]]
 author = "Lavax"
-version = "3.7.1b"
+version = "3.7.1c"
 priority = -1000
 server_filter_tags = {"achievement", "level"}
 
