@@ -2521,6 +2521,7 @@ function allachivevent:ontimepass(inst)
                inst.components.leader:IsBeingFollowedBy("critter_perdling") or
                inst.components.leader:IsBeingFollowedBy("critter_dragonling") or
                inst.components.leader:IsBeingFollowedBy("critter_glomling") or
+               inst.components.leader:IsBeingFollowedBy("critter_eyeofterror") or
                inst.components.leader:IsBeingFollowedBy("critter_lunarmothling") then
                 self.pet = true
                 self:seffc(inst, "pet")
