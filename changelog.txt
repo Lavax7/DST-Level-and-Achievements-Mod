@@ -5,6 +5,9 @@ ToDo:
 -limit PlaySound on coin or levelpoint use to the player
 -change fuelreaver achievement to include celestial guardian
 
+3.7.1e Changes:
+Count Eye of Terror as follower
+
 3.7.1d Changes:
 Autocomplete 2 achievements for Wanda
 Fix pouch error
