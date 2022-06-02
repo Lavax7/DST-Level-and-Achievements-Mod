@@ -27,9 +27,8 @@ local function GetFaceTargetFn(inst)
 end
 
 local function KeepFaceTargetFn(inst, target)
-    return not BrainCommon.ShouldSeekSalt(inst)
-        and not target:HasTag("notarget")
-        and inst:IsNear(target, KEEP_FACE_DIST)
+    return not BrainCommon.ShouldSeekSalt(inst) and not target:HasTag("notarget") and
+               inst:IsNear(target, KEEP_FACE_DIST)
 end
 
 local function ShouldRunAway(guy)
@@ -45,20 +44,17 @@ local LightningGoatBrain = Class(Brain, function(self, inst)
 end)
 
 function LightningGoatBrain:OnStart()
-    local root =
-    PriorityNode(
-    {
-        WhileNode(function() return self.inst.components.health.takingfiredamage end, "OnFire", Panic(self.inst)),
-        IfNode(function() return self.inst.components.combat.target ~= nil end, "hastarget", AttackWall(self.inst)),
-        ChaseAndAttack(self.inst, MAX_CHASE_TIME),
-        SequenceNode{
-            FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn, 0.25),
-            RunAway(self.inst, ShouldRunAway, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)
-        },
-        FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn),
-        BrainCommon.AnchorToSaltlick(self.inst),
-        Wander(self.inst, function() return self.inst.components.knownlocations:GetLocation("herd") end, GetWanderDistFn)
-    },.25)
+    local root = PriorityNode({WhileNode(function()
+        return self.inst.components.health.takingfiredamage
+    end, "OnFire", Panic(self.inst)), IfNode(function()
+        return self.inst.components.combat.target ~= nil
+    end, "hastarget", AttackWall(self.inst)), ChaseAndAttack(self.inst, MAX_CHASE_TIME),
+                               SequenceNode {FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn, 0.25),
+                                             RunAway(self.inst, ShouldRunAway, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)},
+                               FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn),
+                               BrainCommon.AnchorToSaltlick(self.inst), Wander(self.inst, function()
+        return self.inst.components.knownlocations:GetLocation("herd")
+    end, GetWanderDistFn)}, .25)
 
     self.bt = BT(self.inst, root)
 end

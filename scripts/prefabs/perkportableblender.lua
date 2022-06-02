@@ -1,16 +1,10 @@
 require "prefabutil"
 
-local assets =
-{
-    Asset("ANIM", "anim/portable_blender.zip"),
-    Asset("ATLAS", "images/inventoryimages/perkportableblender.xml"),
-    Asset("IMAGE", "images/inventoryimages/perkportableblender.tex"),
-}
+local assets = {Asset("ANIM", "anim/portable_blender.zip"),
+                Asset("ATLAS", "images/inventoryimages/perkportableblender.xml"),
+                Asset("IMAGE", "images/inventoryimages/perkportableblender.tex")}
 
-local prefabs_item =
-{
-    "portableblender",
-}
+local prefabs_item = {"portableblender"}
 
 ---------------------------------------------------------------
 ---------------- Inventory Portable Blender -------------------
@@ -70,8 +64,8 @@ local function itemfn()
     inst:AddComponent("deployable")
     inst.components.deployable.restrictedtag = "masterchef"
     inst.components.deployable.ondeploy = ondeploy
-    --inst.components.deployable:SetDeployMode(DEPLOYMODE.ANYWHERE)
-    --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
+    -- inst.components.deployable:SetDeployMode(DEPLOYMODE.ANYWHERE)
+    -- inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
     inst:AddComponent("hauntable")
     inst.components.hauntable:SetHauntValue(TUNING.HAUNT_TINY)

@@ -1,30 +1,12 @@
-local assets =
-{
-    Asset("ANIM", "anim/klaus_basic.zip"),
-    Asset("ANIM", "anim/klaus_actions.zip"),
-    Asset("ANIM", "anim/klaus_build.zip"),
+local assets = {Asset("ANIM", "anim/klaus_basic.zip"), Asset("ANIM", "anim/klaus_actions.zip"),
+                Asset("ANIM", "anim/klaus_build.zip")}
+
+local prefabs = {"monstermeat", "charcoal", "klaussackkey", "deer_red", "deer_blue", "staff_castinglight",
+                 "chesspiece_klaus_sketch", -- winter loot
+"winter_food3" -- Candy Cane
 }
 
-local prefabs =
-{
-    "monstermeat",
-    "charcoal",
-    "klaussackkey",
-    "deer_red",
-    "deer_blue",
-    "staff_castinglight",
-	"chesspiece_klaus_sketch",					   
-
-    --winter loot
-    "winter_food3", --Candy Cane
-}
-
-local loot =
-{
-    "monstermeat",
-    "charcoal",
-	"chesspiece_klaus_sketch",					   
-}
+local loot = {"monstermeat", "charcoal", "chesspiece_klaus_sketch"}
 
 --------------------------------------------------------------------------
 
@@ -55,12 +37,12 @@ local function SetStatScale(inst, scale)
     inst.components.combat:SetRange(inst.attack_range, inst.hit_range)
     inst.components.combat:SetAttackPeriod(TUNING.KLAUS_ATTACK_PERIOD / scale)
 
-    --scale by volume yo XD
+    -- scale by volume yo XD
     scale = scale * scale * scale
     local health_percent = inst.components.health:GetPercent()
     inst.components.health:SetMaxHealth(TUNING.KLAUS_HEALTH * scale)
     inst.components.health:SetPercent(health_percent)
-    inst.components.health:SetAbsorptionAmount(scale > 1 and 1 - 1 / scale or 0) --don't want any floating point errors!
+    inst.components.health:SetAbsorptionAmount(scale > 1 and 1 - 1 / scale or 0) -- don't want any floating point errors!
     inst.components.combat:SetDefaultDamage(TUNING.KLAUS_DAMAGE * scale)
 end
 
@@ -98,11 +80,9 @@ local function RetargetFn(inst)
 
     if target ~= nil and target:HasTag("player") then
         local newplayer = inst.components.grouptargeter:TryGetNewTarget()
-        return newplayer ~= nil
-            and newplayer:IsNear(inst, inrange and inst.attack_range + newplayer:GetPhysicsRadius(0) or TUNING.KLAUS_AGGRO_DIST)
-            and newplayer
-            or nil,
-            true
+        return newplayer ~= nil and
+                   newplayer:IsNear(inst, inrange and inst.attack_range + newplayer:GetPhysicsRadius(0) or
+                TUNING.KLAUS_AGGRO_DIST) and newplayer or nil, true
     end
 
     local nearplayers = {}
@@ -115,8 +95,9 @@ local function RetargetFn(inst)
 end
 
 local function KeepTargetFn(inst, target)
-    return inst.components.combat:CanTarget(target)
-        and target:GetDistanceSqToPoint(inst.components.knownlocations:GetLocation("spawnpoint")) < TUNING.KLAUS_DEAGGRO_DIST * TUNING.KLAUS_DEAGGRO_DIST
+    return inst.components.combat:CanTarget(target) and
+               target:GetDistanceSqToPoint(inst.components.knownlocations:GetLocation("spawnpoint")) <
+               TUNING.KLAUS_DEAGGRO_DIST * TUNING.KLAUS_DEAGGRO_DIST
 end
 
 local function ClearRecentAttacker(inst, attacker)
@@ -132,9 +113,8 @@ local function OnAttacked(inst, data)
             inst.recentattackers[data.attacker] = inst:DoTaskInTime(30, ClearRecentAttacker, data.attacker)
         end
         local target = inst.components.combat.target
-        if not (target ~= nil and
-                target:HasTag("player") and
-                target:IsNear(inst, inst.attack_range + target:GetPhysicsRadius(0))) then
+        if not (target ~= nil and target:HasTag("player") and
+            target:IsNear(inst, inst.attack_range + target:GetPhysicsRadius(0))) then
             inst.components.combat:SetTarget(data.attacker)
         end
         inst.components.commander:ShareTargetToAllSoldiers(data.attacker)
@@ -153,21 +133,16 @@ local function FindChompTarget(inst)
             end
         end
     end
-    return (#fartargets > 0 and fartargets[math.random(#fartargets)])
-        or (#neartargets > 0 and neartargets[math.random(#neartargets)])
-        or inst.components.combat.target
-        or nil
+    return (#fartargets > 0 and fartargets[math.random(#fartargets)]) or
+               (#neartargets > 0 and neartargets[math.random(#neartargets)]) or inst.components.combat.target or nil
 end
 
 --------------------------------------------------------------------------
 
 local function AnnounceWarning(inst, player, strid)
     if player:IsValid() and player.entity:IsVisible() and
-        not (player.components.health ~= nil and player.components.health:IsDead()) and
-        not player:HasTag("playerghost") and
-        player:IsNear(inst, 15) and
-        not inst.components.health:IsDead() and
-        player.components.talker ~= nil then
+        not (player.components.health ~= nil and player.components.health:IsDead()) and not player:HasTag("playerghost") and
+        player:IsNear(inst, 15) and not inst.components.health:IsDead() and player.components.talker ~= nil then
         player.components.talker:Say(GetString(player, strid))
     end
 end
@@ -201,19 +176,22 @@ local function SummonHelpers(inst, warning)
         if k:IsValid() and not (k.components.health:IsDead() or k:HasTag("playerghost")) then
             local distsq = k:GetDistanceSqToPoint(x, y, z)
             if distsq < rangesq then
-                table.insert(targets, { inst = k, distsq = distsq })
+                table.insert(targets, {
+                    inst = k,
+                    distsq = distsq
+                })
             end
         end
     end
     local target = inst.components.combat.target
-    if target ~= nil and
-        inst.recentattackers[target] == nil and
-        target:IsValid() and
-        target:HasTag("player") and
+    if target ~= nil and inst.recentattackers[target] == nil and target:IsValid() and target:HasTag("player") and
         not (target.components.health:IsDead() or target:HasTag("playerghost")) then
         local distsq = target:GetDistanceSqToPoint(x, y, z)
         if distsq < rangesq then
-            table.insert(targets, { inst = target, distsq = distsq })
+            table.insert(targets, {
+                inst = target,
+                distsq = distsq
+            })
         end
     end
     if #targets > 0 then
@@ -221,8 +199,11 @@ local function SummonHelpers(inst, warning)
         local stock = TUNING.KLAUS_NAUGHTY_MAX_SPAWNS
         for i, v in ipairs(targets) do
             local numspawns = stock > 0 and math.min(TUNING.KLAUS_NAUGHTY_MIN_SPAWNS, math.ceil(stock / #targets)) or 0
-            --Push event even if numspawns is 0
-            TheWorld:PushEvent("ms_forcenaughtiness", { player = v.inst, numspawns = numspawns })
+            -- Push event even if numspawns is 0
+            TheWorld:PushEvent("ms_forcenaughtiness", {
+                player = v.inst,
+                numspawns = numspawns
+            })
             stock = stock - numspawns
         end
         if warning then
@@ -246,7 +227,7 @@ local function OnNewTarget(inst, data)
 end
 
 local function SetEngaged(inst, engaged)
-    --NOTE: inst.engaged is nil at instantiation, and engaged must not be nil
+    -- NOTE: inst.engaged is nil at instantiation, and engaged must not be nil
     if inst.engaged ~= engaged then
         inst.engaged = engaged
         inst.components.timer:StopTimer("command_cd")
@@ -284,7 +265,9 @@ local function UpdateDeerOffsets(inst)
                 deers[1]:OnUpdateOffset(Vector3(-xoffs, 0, -zoffs))
             end
         elseif #deers > 0 then
-            deers[1]:OnUpdateOffset(deers[1]:GetDistanceSqToPoint(x, 0, z) < deers[1]:GetDistanceSqToPoint(x1, 0, z1) and Vector3(xoffs, 0, zoffs) or Vector3(-xoffs, 0, -zoffs))
+            deers[1]:OnUpdateOffset(
+                deers[1]:GetDistanceSqToPoint(x, 0, z) < deers[1]:GetDistanceSqToPoint(x1, 0, z1) and
+                    Vector3(xoffs, 0, zoffs) or Vector3(-xoffs, 0, -zoffs))
         end
     end
 end
@@ -293,10 +276,8 @@ local function SpawnDeer(inst)
     local pos = inst:GetPosition()
     local rot = inst.Transform:GetRotation()
     local theta = (rot - 90) * DEGREES
-    local offset =
-        FindWalkableOffset(pos, theta, inst.deer_dist, 5, true, false) or
-        FindWalkableOffset(pos, theta, inst.deer_dist * .5, 5, true, false) or
-        Vector3(0, 0, 0)
+    local offset = FindWalkableOffset(pos, theta, inst.deer_dist, 5, true, false) or
+                       FindWalkableOffset(pos, theta, inst.deer_dist * .5, 5, true, false) or Vector3(0, 0, 0)
 
     local deer = SpawnPrefab("deer_red")
     deer.Transform:SetRotation(rot)
@@ -305,10 +286,8 @@ local function SpawnDeer(inst)
     inst.components.commander:AddSoldier(deer)
 
     theta = (rot + 90) * DEGREES
-    offset =
-        FindWalkableOffset(pos, theta, inst.deer_dist, 5, true, false) or
-        FindWalkableOffset(pos, theta, inst.deer_dist * .5, 5, true, false) or
-        Vector3(0, 0, 0)
+    offset = FindWalkableOffset(pos, theta, inst.deer_dist, 5, true, false) or
+                 FindWalkableOffset(pos, theta, inst.deer_dist * .5, 5, true, false) or Vector3(0, 0, 0)
 
     deer = SpawnPrefab("deer_blue")
     deer.Transform:SetRotation(rot)
@@ -331,14 +310,17 @@ local function PushMusic(inst, level)
         inst._playingmusic = false
     elseif ThePlayer:IsNear(inst, inst._playingmusic and 40 or 20) then
         inst._playingmusic = true
-        ThePlayer:PushEvent("triggeredevent", { name = "klaus", level = level })
+        ThePlayer:PushEvent("triggeredevent", {
+            name = "klaus",
+            level = level
+        })
     elseif inst._playingmusic and not ThePlayer:IsNear(inst, 50) then
         inst._playingmusic = false
     end
 end
 
 local function OnMusicDirty(inst)
-    --Dedicated server does not need to trigger music
+    -- Dedicated server does not need to trigger music
     if not TheNet:IsDedicated() then
         if inst._musictask ~= nil then
             inst._musictask:Cancel()
@@ -378,7 +360,7 @@ end
 local function Enrage(inst, warning)
     if not inst.enraged then
         inst.enraged = true
-        inst.nohelpers = nil --redundant when enraged
+        inst.nohelpers = nil -- redundant when enraged
         inst.Physics:Stop()
         inst.Physics:Teleport(inst.Transform:GetWorldPosition())
         SetPhysicalScale(inst, TUNING.KLAUS_ENRAGE_SCALE)
@@ -435,7 +417,8 @@ local function OnEntitySleep(inst)
     if inst._sleeptask ~= nil then
         inst._sleeptask:Cancel()
     end
-    inst._sleeptask = not (inst:IsUnchained() and inst.components.health:IsDead()) and inst:DoTaskInTime(10, DoRemove) or nil
+    inst._sleeptask =
+        not (inst:IsUnchained() and inst.components.health:IsDead()) and inst:DoTaskInTime(10, DoRemove) or nil
 end
 
 local function OnEntityWake(inst)
@@ -452,11 +435,8 @@ local function ClearRecentlyCharged(inst, other)
 end
 
 local function OnDestroyOther(inst, other)
-    if other:IsValid() and
-        other.components.workable ~= nil and
-        other.components.workable:CanBeWorked() and
-        other.components.workable.action ~= ACTIONS.DIG and
-        other.components.workable.action ~= ACTIONS.NET and
+    if other:IsValid() and other.components.workable ~= nil and other.components.workable:CanBeWorked() and
+        other.components.workable.action ~= ACTIONS.DIG and other.components.workable.action ~= ACTIONS.NET and
         not inst.recentlycharged[other] then
         SpawnPrefab("collapse_small").Transform:SetPosition(other.Transform:GetWorldPosition())
         other.components.workable:Destroy(inst)
@@ -468,12 +448,8 @@ local function OnDestroyOther(inst, other)
 end
 
 local function OnCollide(inst, other)
-    if other ~= nil and
-        other:IsValid() and
-        other.components.workable ~= nil and
-        other.components.workable:CanBeWorked() and
-        other.components.workable.action ~= ACTIONS.DIG and
-        other.components.workable.action ~= ACTIONS.NET and
+    if other ~= nil and other:IsValid() and other.components.workable ~= nil and other.components.workable:CanBeWorked() and
+        other.components.workable.action ~= ACTIONS.DIG and other.components.workable.action ~= ACTIONS.NET and
         not inst.recentlycharged[other] then
         inst:DoTaskInTime(2 * FRAMES, OnDestroyOther, other)
     end
@@ -484,7 +460,6 @@ end
 local function fn()
     local inst = CreateEntity()
 
-	
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddLight()
@@ -493,11 +468,11 @@ local function fn()
     inst.entity:AddNetwork()
 
     local festiveperk = IsSpecialEventActive(SPECIAL_EVENTS.WINTERS_FEAST)
-    for k,v in pairs(AllPlayers) do
+    for k, v in pairs(AllPlayers) do
         if v.components.allachivcoin.shrine == true then
             local pos = Vector3(v.Transform:GetWorldPosition())
-            local ents = TheSim:FindEntities(pos.x,pos.y,pos.z, 30)
-            for i,j in pairs(ents) do
+            local ents = TheSim:FindEntities(pos.x, pos.y, pos.z, 30)
+            for i, j in pairs(ents) do
                 if j.prefab == "klaus_sack" then
                     festiveperk = true
                 end
@@ -563,21 +538,23 @@ local function fn()
     inst.components.sleeper.diminishingreturns = true
 
     inst:AddComponent("locomotor")
-    inst.components.locomotor.pathcaps = { ignorewalls = true }
+    inst.components.locomotor.pathcaps = {
+        ignorewalls = true
+    }
     inst.components.locomotor.walkspeed = TUNING.KLAUS_SPEED
 
     inst:AddComponent("health")
-    --inst.components.health:SetMaxHealth(TUNING.KLAUS_HEALTH)
+    -- inst.components.health:SetMaxHealth(TUNING.KLAUS_HEALTH)
     inst.components.health.nofadeout = true
 
     inst:AddComponent("healthtrigger")
     inst.components.healthtrigger:AddTrigger(PHASE2_HEALTH, EnterPhase2Trigger)
 
     inst:AddComponent("combat")
-    --inst.components.combat:SetDefaultDamage(TUNING.KLAUS_DAMAGE)
-    --inst.components.combat:SetAttackPeriod(TUNING.KLAUS_ATTACK_PERIOD)
+    -- inst.components.combat:SetDefaultDamage(TUNING.KLAUS_DAMAGE)
+    -- inst.components.combat:SetAttackPeriod(TUNING.KLAUS_ATTACK_PERIOD)
     inst.components.combat.playerdamagepercent = .5
-    --inst.components.combat:SetRange(TUNING.KLAUS_ATTACK_RANGE, TUNING.KLAUS_HIT_RANGE)
+    -- inst.components.combat:SetRange(TUNING.KLAUS_ATTACK_RANGE, TUNING.KLAUS_HIT_RANGE)
     inst.components.combat:SetRetargetFunction(3, RetargetFn)
     inst.components.combat:SetKeepTargetFunction(KeepTargetFn)
     inst.components.combat.hiteffectsymbol = "swap_fire"
@@ -605,7 +582,7 @@ local function fn()
 
     inst.DoFoleySounds = DoFoleySounds
 
-	inst:SetBrain(brain)					
+    inst:SetBrain(brain)
     inst:SetStateGraph("SGklaus")
 
     SetStatScale(inst, 1)

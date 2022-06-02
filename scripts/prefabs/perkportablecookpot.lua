@@ -1,16 +1,10 @@
 require "prefabutil"
 
-local assets_item =
-{
-    Asset("ANIM", "anim/portable_cook_pot.zip"),
-    Asset("ATLAS", "images/inventoryimages/perkportablecookpot.xml"),
-    Asset("IMAGE", "images/inventoryimages/perkportablecookpot.tex"),
-}
+local assets_item = {Asset("ANIM", "anim/portable_cook_pot.zip"),
+                     Asset("ATLAS", "images/inventoryimages/perkportablecookpot.xml"),
+                     Asset("IMAGE", "images/inventoryimages/perkportablecookpot.tex")}
 
-local prefabs_item =
-{
-    "portablecookpot",
-}
+local prefabs_item = {"portablecookpot"}
 ---------------------------------------------------------------
 ---------------- Inventory Portable Cookpot -------------------
 ---------------------------------------------------------------
@@ -61,8 +55,8 @@ local function itemfn()
     inst:AddComponent("deployable")
     inst.components.deployable.restrictedtag = "masterchef"
     inst.components.deployable.ondeploy = ondeploy
-    --inst.components.deployable:SetDeployMode(DEPLOYMODE.ANYWHERE)
-    --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
+    -- inst.components.deployable:SetDeployMode(DEPLOYMODE.ANYWHERE)
+    -- inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
     inst:AddComponent("hauntable")
     inst.components.hauntable:SetHauntValue(TUNING.HAUNT_TINY)

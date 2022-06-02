@@ -5,7 +5,7 @@ end)
 
 function ksmark:OnSave()
     local data = {
-        mark = self.mark,
+        mark = self.mark
     }
     return data
 end

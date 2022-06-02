@@ -1,57 +1,18 @@
-require("worldsettingsutil")							
-local assets =
-{
-    Asset("ANIM", "anim/antlion_build.zip"),
-    Asset("ANIM", "anim/antlion_basic.zip"),
-    Asset("ANIM", "anim/antlion_action.zip"),
-    Asset("ANIM", "anim/sand_splash_fx.zip"),
-}
+require("worldsettingsutil")
+local assets = {Asset("ANIM", "anim/antlion_build.zip"), Asset("ANIM", "anim/antlion_basic.zip"),
+                Asset("ANIM", "anim/antlion_action.zip"), Asset("ANIM", "anim/sand_splash_fx.zip")}
 
-local prefabs =
-{
-    "antlion_sinkhole",
-    "townportal_blueprint",
-    "townportaltalisman",
-    "sandspike",
-    "sandblock",
-
-    --loot
-    "meat",
-    "rocks",
-    "trinket_1",
-    "trinket_3",
-    "trinket_8",
-    "trinket_9",
-    "antliontrinket",
-	"chesspiece_antlion_sketch",						 
-}
+local prefabs = {"antlion_sinkhole", "townportal_blueprint", "townportaltalisman", "sandspike", "sandblock", -- loot
+"meat", "rocks", "trinket_1", "trinket_3", "trinket_8", "trinket_9", "antliontrinket", "chesspiece_antlion_sketch"}
 
 SetSharedLootTable('antlion',
-{
-    {'townportal_blueprint',    1.00},
-	{'chesspiece_antlion_sketch', 1.00},								 
+    {{'townportal_blueprint', 1.00}, {'chesspiece_antlion_sketch', 1.00}, {'townportaltalisman', 1.00},
+     {'townportaltalisman', 1.00}, {'townportaltalisman', 1.00}, {'townportaltalisman', 1.00},
+     {'townportaltalisman', 1.00}, {'townportaltalisman', 1.00}, {'townportaltalisman', 0.50},
+     {'townportaltalisman', 0.50}, {'meat', 1.00}, {'meat', 1.00}, {'meat', 1.00}, {'meat', 1.00}, {'rocks', 1.00},
+     {'rocks', 1.00}, {'rocks', 0.50}, {'rocks', 0.50}})
 
-    {'townportaltalisman',  1.00},
-    {'townportaltalisman',  1.00},
-    {'townportaltalisman',  1.00},
-    {'townportaltalisman',  1.00},
-    {'townportaltalisman',  1.00},
-    {'townportaltalisman',  1.00},
-    {'townportaltalisman',  0.50},
-    {'townportaltalisman',  0.50},
-
-    {'meat',                1.00},
-    {'meat',                1.00},
-    {'meat',                1.00},
-    {'meat',                1.00},
-
-    {'rocks',               1.00},
-    {'rocks',               1.00},
-    {'rocks',               0.50},
-    {'rocks',               0.50},
-})
-
-local ANTLION_RAGE_TIMER = "rage"								 
+local ANTLION_RAGE_TIMER = "rage"
 --------------------------------------------------------------------------
 
 local function PushMusic(inst)
@@ -59,14 +20,16 @@ local function PushMusic(inst)
         inst._playingmusic = false
     elseif ThePlayer:IsNear(inst, inst._playingmusic and 40 or 20) then
         inst._playingmusic = true
-        ThePlayer:PushEvent("triggeredevent", { name = "antlion" })
+        ThePlayer:PushEvent("triggeredevent", {
+            name = "antlion"
+        })
     elseif inst._playingmusic and not ThePlayer:IsNear(inst, 50) then
         inst._playingmusic = false
     end
 end
 
 local function OnIsFightingDirty(inst)
-    --Dedicated server does not need to trigger music
+    -- Dedicated server does not need to trigger music
     if not TheNet:IsDedicated() then
         if not inst._isfighting:value() then
             if inst._musictask ~= nil then
@@ -103,19 +66,18 @@ local function Despawn(inst)
 end
 
 local function AcceptTest(inst, item)
-    return (not (inst:HasRewardToGive() or inst.sg.mem.wantstofightdata ~= nil))
-        and (item.components.tradable.rocktribute ~= nil)
-        and (item.components.tradable.rocktribute > 0)
+    return (not (inst:HasRewardToGive() or inst.sg.mem.wantstofightdata ~= nil)) and
+               (item.components.tradable.rocktribute ~= nil) and (item.components.tradable.rocktribute > 0)
 end
 
 local function OnGivenItem(inst, giver, item)
     if item.prefab == "heatrock" and item.currentTempRange ~= nil then
-        local trigger =
-            (item.currentTempRange <= 1 and "freeze") or
-            (item.currentTempRange >= 4 and "burn") or
-            nil
+        local trigger = (item.currentTempRange <= 1 and "freeze") or (item.currentTempRange >= 4 and "burn") or nil
         if trigger ~= nil then
-            inst:PushEvent("onacceptfighttribute", { tributer = giver, trigger = trigger })
+            inst:PushEvent("onacceptfighttribute", {
+                tributer = giver,
+                trigger = trigger
+            })
             return
         else
             if giver.components.allachivevent.fuzzy ~= true then
@@ -128,10 +90,8 @@ local function OnGivenItem(inst, giver, item)
         end
     end
     inst.tributer = giver
-    inst.pendingrewarditem =
-        (item.prefab == "antliontrinket" and "townportal_blueprint") or 
-        (item.components.tradable.goldvalue > 0 and "townportaltalisman") or
-        nil
+    inst.pendingrewarditem = (item.prefab == "antliontrinket" and "townportal_blueprint") or
+                                 (item.components.tradable.goldvalue > 0 and "townportaltalisman") or nil
 
     local rage_calming = item.components.tradable.rocktribute * TUNING.ANTLION_TRIBUTE_TO_RAGE_TIME
     inst.maxragetime = math.min(inst.maxragetime + rage_calming, TUNING.ANTLION_RAGE_TIME_MAX)
@@ -140,15 +100,18 @@ local function OnGivenItem(inst, giver, item)
     if timeleft ~= nil then
         timeleft = math.min(timeleft + rage_calming, TUNING.ANTLION_RAGE_TIME_MAX)
         inst.components.worldsettingstimer:SetTimeLeft(ANTLION_RAGE_TIMER, timeleft)
-		inst.components.worldsettingstimer:ResumeTimer(ANTLION_RAGE_TIMER)																  
+        inst.components.worldsettingstimer:ResumeTimer(ANTLION_RAGE_TIMER)
     else
         inst.components.worldsettingstimer:StartTimer(ANTLION_RAGE_TIMER, inst.maxragetime)
     end
     inst.components.sinkholespawner:StopSinkholes()
 
-    inst:PushEvent("onaccepttribute", { tributepercent = (timeleft or 0) / TUNING.ANTLION_RAGE_TIME_MAX })
+    inst:PushEvent("onaccepttribute", {
+        tributepercent = (timeleft or 0) / TUNING.ANTLION_RAGE_TIME_MAX
+    })
 
-    if giver ~= nil and giver.components.talker ~= nil and GetTime() - (inst.timesincelasttalker or -TUNING.ANTLION_TRIBUTER_TALKER_TIME) > TUNING.ANTLION_TRIBUTER_TALKER_TIME then
+    if giver ~= nil and giver.components.talker ~= nil and GetTime() -
+        (inst.timesincelasttalker or -TUNING.ANTLION_TRIBUTER_TALKER_TIME) > TUNING.ANTLION_TRIBUTER_TALKER_TIME then
         inst.timesincelasttalker = GetTime()
         giver.components.talker:Say(GetString(giver, "ANNOUNCE_ANTLION_TRIBUTE"))
     end
@@ -162,7 +125,8 @@ local function ontimerdone(inst, data)
     if data.name == ANTLION_RAGE_TIMER then
         inst.components.sinkholespawner:StartSinkholes()
 
-        inst.maxragetime = math.max(inst.maxragetime * TUNING.ANTLION_RAGE_TIME_FAILURE_SCALE, TUNING.ANTLION_RAGE_TIME_MIN)
+        inst.maxragetime = math.max(inst.maxragetime * TUNING.ANTLION_RAGE_TIME_FAILURE_SCALE,
+            TUNING.ANTLION_RAGE_TIME_MIN)
         inst.components.worldsettingstimer:StartTimer(ANTLION_RAGE_TIMER, inst.maxragetime)
     end
 end
@@ -172,16 +136,17 @@ local function HasRewardToGive(inst)
 end
 
 local function GiveReward(inst)
-    LaunchAt(SpawnPrefab(inst.pendingrewarditem), inst, (inst.tributer ~= nil and inst.tributer:IsValid()) and inst.tributer or nil, 1, 2, 1)
+    LaunchAt(SpawnPrefab(inst.pendingrewarditem), inst,
+        (inst.tributer ~= nil and inst.tributer:IsValid()) and inst.tributer or nil, 1, 2, 1)
     inst.pendingrewarditem = nil
     inst.tributer = nil
 end
 
 local function GetRageLevel(inst)
-    local ragetimepercent = (inst.components.worldsettingstimer:GetTimeLeft(ANTLION_RAGE_TIMER) or 0) / TUNING.ANTLION_RAGE_TIME_MAX
+    local ragetimepercent = (inst.components.worldsettingstimer:GetTimeLeft(ANTLION_RAGE_TIMER) or 0) /
+                                TUNING.ANTLION_RAGE_TIME_MAX
     return (ragetimepercent <= TUNING.ANTLION_RAGE_TIME_UNHAPPY_PERCENT and 3) or
-           (ragetimepercent <= TUNING.ANTLION_RAGE_TIME_HAPPY_PERCENT and 2) or
-           1
+               (ragetimepercent <= TUNING.ANTLION_RAGE_TIME_HAPPY_PERCENT and 2) or 1
 end
 
 local function getstatus(inst)
@@ -189,9 +154,7 @@ local function getstatus(inst)
         return "UNHAPPY"
     end
     local level = GetRageLevel(inst)
-    return (level == 1 and "VERYHAPPY") or
-           (level == 3 and "UNHAPPY") or
-           nil
+    return (level == 1 and "VERYHAPPY") or (level == 3 and "UNHAPPY") or nil
 end
 
 local function OnInit(inst)
@@ -223,22 +186,20 @@ local brain = require("brains/antlionbrain")
 
 local function RetargetFn(inst)
     local x, y, z = inst.Transform:GetWorldPosition()
-    local newplayer--[[, distsq]] = FindClosestPlayerInRange(x, y, z, TUNING.ANTLION_CAST_RANGE, true)
+    local newplayer --[[, distsq]] = FindClosestPlayerInRange(x, y, z, TUNING.ANTLION_CAST_RANGE, true)
     return newplayer, true
 end
 
 local function KeepTargetFn(inst, target)
-    return inst.components.combat:CanTarget(target)
-        and inst:IsNear(target, TUNING.ANTLION_CAST_RANGE)
+    return inst.components.combat:CanTarget(target) and inst:IsNear(target, TUNING.ANTLION_CAST_RANGE)
 end
 
 local function OnAttacked(inst, data)
     if data.attacker ~= nil and data.attacker:IsNear(inst, TUNING.ANTLION_CAST_RANGE) then
         local target = inst.components.combat.target
-        if not (target ~= nil and
-                target:IsNear(inst, TUNING.ANTLION_CAST_RANGE) and
-                target.components.combat:IsRecentTarget(inst) and
-                (target.components.combat.laststartattacktime or 0) + 3 >= GetTime()) then
+        if not (target ~= nil and target:IsNear(inst, TUNING.ANTLION_CAST_RANGE) and
+            target.components.combat:IsRecentTarget(inst) and (target.components.combat.laststartattacktime or 0) + 3 >=
+            GetTime()) then
             inst.components.combat:SetTarget(data.attacker)
         end
     end
@@ -254,10 +215,8 @@ end
 
 local function OnEntitySleep(inst)
     if inst.sleeptask == nil then
-        inst.sleeptask =
-            inst.components.health:IsHurt() and
-            inst:DoPeriodicTask(2, DoHealTick) or
-            inst:DoTaskInTime(5, inst.StopCombat)
+        inst.sleeptask = inst.components.health:IsHurt() and inst:DoPeriodicTask(2, DoHealTick) or
+                             inst:DoTaskInTime(5, inst.StopCombat)
     end
 end
 
@@ -298,8 +257,8 @@ local function StartCombat(inst, target, trigger)
 
         inst:SetStateGraph("SGantlion_angry")
 
-        --After loading, replacing an empty brain with a new
-        --one doesn't automatically restart itself properly.
+        -- After loading, replacing an empty brain with a new
+        -- one doesn't automatically restart itself properly.
         inst:StopBrain()
         inst:SetBrain(brain)
         inst:RestartBrain()
@@ -374,7 +333,7 @@ local function StopCombat(inst)
     end
 end
 
-local function OnPreLoad(inst, data)--, newents)
+local function OnPreLoad(inst, data) -- , newents)
     if data.health ~= nil then
         StartCombat(inst)
     end
@@ -413,10 +372,10 @@ local function fn()
     inst:AddTag("largecreature")
     inst:AddTag("antlion_sinkhole_blocker")
 
-    --trader (from trader component) added to pristine state for optimization
+    -- trader (from trader component) added to pristine state for optimization
     inst:AddTag("trader")
 
-    --Sneak these into pristine state for optimization
+    -- Sneak these into pristine state for optimization
     inst:AddTag("__health")
     inst:AddTag("__combat")
 
@@ -432,7 +391,7 @@ local function fn()
         return inst
     end
 
-    --Remove these tags so that they can be added properly when replicating components below
+    -- Remove these tags so that they can be added properly when replicating components below
     inst:RemoveTag("__health")
     inst:RemoveTag("__combat")
 

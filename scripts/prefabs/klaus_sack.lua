@@ -1,60 +1,21 @@
 require "prefabs/winter_ornaments"
 
-local assets =
-{
-    Asset("ANIM", "anim/klaus_bag.zip"),
+local assets = {Asset("ANIM", "anim/klaus_bag.zip")}
+
+local prefabs = {"klaus", "boneshard", "bundle", "gift", -- loot
+"krampus_sack", "charcoal", "goldnugget", "amulet", -- winter loot
+"goatmilk", "winter_food1", -- gingerbread cookies
+"winter_food2" -- sugar cookies
 }
 
-local prefabs =
-{
-    "klaus",
-    "boneshard",
-    "bundle",
-    "gift",
+local giant_loot1 = {"deerclops_eyeball", "dragon_scales", "hivehat", "shroom_skin", "mandrake"}
 
-    --loot
-    "krampus_sack",
-    "charcoal",
-    "goldnugget",
-    "amulet",
+local giant_loot2 = {"dragonflyfurnace_blueprint", "red_mushroomhat_blueprint", "green_mushroomhat_blueprint",
+                     "blue_mushroomhat_blueprint", "mushroom_light2_blueprint", "mushroom_light_blueprint",
+                     "townportal_blueprint", "bundlewrap_blueprint"}
 
-    --winter loot
-    "goatmilk",
-    "winter_food1", --gingerbread cookies
-    "winter_food2", --sugar cookies
-}
-
-local giant_loot1 =
-{
-    "deerclops_eyeball",
-    "dragon_scales",
-    "hivehat",
-    "shroom_skin",
-    "mandrake",
-}
-
-local giant_loot2 =
-{
-    "dragonflyfurnace_blueprint",
-    "red_mushroomhat_blueprint",
-    "green_mushroomhat_blueprint",
-    "blue_mushroomhat_blueprint",
-    "mushroom_light2_blueprint",
-    "mushroom_light_blueprint",
-    "townportal_blueprint",
-    "bundlewrap_blueprint",
-}
-
-local giant_loot3 =
-{
-    "bearger_fur",
-    "royal_jelly",
-    "goose_feather",
-    "lavae_egg",
-    "spiderhat",
-    "steelwool",
-    "townportaltalisman",
-}
+local giant_loot3 = {"bearger_fur", "royal_jelly", "goose_feather", "lavae_egg", "spiderhat", "steelwool",
+                     "townportaltalisman"}
 
 for i, v in ipairs(giant_loot1) do
     table.insert(prefabs, v)
@@ -73,7 +34,7 @@ for i, v in ipairs(GetAllWinterOrnamentPrefabs()) do
 end
 
 local function IsSpecialAndPerk(player)
-	return (IsSpecialEventActive(SPECIAL_EVENTS.WINTERS_FEAST) or player.components.allachivcoin.shrine == true)
+    return (IsSpecialEventActive(SPECIAL_EVENTS.WINTERS_FEAST) or player.components.allachivcoin.shrine == true)
 end
 
 local function DropBundle(inst, items, festive)
@@ -96,8 +57,8 @@ local function onuseklauskey(inst, key, doer)
         return false
     elseif key.components.klaussackkey.truekey then
         if inst.components.entitytracker:GetEntity("klaus") ~= nil then
-            --klaus is already spawned
-            --announce danger?
+            -- klaus is already spawned
+            -- announce danger?
             return false, "KLAUS", false
         end
 
@@ -107,32 +68,17 @@ local function onuseklauskey(inst, key, doer)
 
         if IsSpecialAndPerk(doer) then
             local rnd = math.random(3)
-            local boss_ornaments =
-            {
-                "winter_ornament_boss_klaus",
-                "winter_ornament_boss_noeyeblue",
-                "winter_ornament_boss_noeyered",
-                "winter_ornament_boss_krampus",
-            }
-            local items =
-            {
-                SpawnPrefab(boss_ornaments[math.random(#boss_ornaments)]),
-                SpawnPrefab(GetRandomFancyWinterOrnament()),
-                SpawnPrefab(GetRandomLightWinterOrnament()),
-                SpawnPrefab(
-                    (rnd == 1 and GetRandomLightWinterOrnament()) or
-                    (rnd == 2 and GetRandomFancyWinterOrnament()) or
-                    GetRandomBasicWinterOrnament()
-                ),
-            }
+            local boss_ornaments = {"winter_ornament_boss_klaus", "winter_ornament_boss_noeyeblue",
+                                    "winter_ornament_boss_noeyered", "winter_ornament_boss_krampus"}
+            local items = {SpawnPrefab(boss_ornaments[math.random(#boss_ornaments)]),
+                           SpawnPrefab(GetRandomFancyWinterOrnament()), SpawnPrefab(GetRandomLightWinterOrnament()),
+                           SpawnPrefab(
+                (rnd == 1 and GetRandomLightWinterOrnament()) or (rnd == 2 and GetRandomFancyWinterOrnament()) or
+                    GetRandomBasicWinterOrnament())}
             DropBundle(inst, items, true)
 
-            items =
-            {
-                SpawnPrefab("goatmilk"),
-                SpawnPrefab("goatmilk"),
-                SpawnPrefab("winter_food"..tostring(math.random(2))),
-            }
+            items = {SpawnPrefab("goatmilk"), SpawnPrefab("goatmilk"),
+                     SpawnPrefab("winter_food" .. tostring(math.random(2)))}
             items[3].components.stackable.stacksize = 4
             DropBundle(inst, items, true)
         end
@@ -185,30 +131,28 @@ local function onuseklauskey(inst, key, doer)
         inst.SoundEmitter:PlaySound("dontstarve/creatures/together/deer/chain")
 
         if inst.components.entitytracker:GetEntity("klaus") ~= nil then
-            --klaus is already spawned
-            --announce danger?
+            -- klaus is already spawned
+            -- announce danger?
         elseif inst.components.entitytracker:GetEntity("key") ~= nil then
-            --already got the right key
-            --announce that this isn't the right key
+            -- already got the right key
+            -- announce that this isn't the right key
         else
-            --Find spawn point far away, preferrably not near players
+            -- Find spawn point far away, preferrably not near players
             local pos = inst:GetPosition()
             local minplayers = math.huge
             local spawnx, spawnz
-            FindWalkableOffset(pos,
-                math.random() * 2 * PI, 33, 16, true, true,
-                function(pt)
-                    local count = #FindPlayersInRangeSq(pt.x, pt.y, pt.z, 625)
-                    if count < minplayers then
-                        minplayers = count
-                        spawnx, spawnz = pt.x, pt.z
-                        return count <= 0
-                    end
-                    return false
-                end)
+            FindWalkableOffset(pos, math.random() * 2 * PI, 33, 16, true, true, function(pt)
+                local count = #FindPlayersInRangeSq(pt.x, pt.y, pt.z, 625)
+                if count < minplayers then
+                    minplayers = count
+                    spawnx, spawnz = pt.x, pt.z
+                    return count <= 0
+                end
+                return false
+            end)
 
             if spawnx == nil then
-                --No spawn point (with or without players), so try closer
+                -- No spawn point (with or without players), so try closer
                 local offset = FindWalkableOffset(pos, math.random() * 2 * PI, 3, 8, false, true)
                 if offset ~= nil then
                     spawnx, spawnz = pos.x + offset.x, pos.z + offset.z
@@ -246,7 +190,7 @@ local function OnLoadPostPass(inst)
     end
 end
 
---Also called from klaussackspawner
+-- Also called from klaussackspawner
 local function OnDropKey(inst, key, klaus)
     local oldkey = inst.components.entitytracker:GetEntity("key")
     if oldkey ~= nil then
@@ -259,10 +203,9 @@ local function OnDropKey(inst, key, klaus)
 end
 
 local function validatesack(inst)
-    if not IsSpecialEventActive(SPECIAL_EVENTS.WINTERS_FEAST) and
-        TheWorld.state.cycles >= inst.despawnday and
-        inst.components.entitytracker:GetEntity("klaus") == nil and
-        inst.components.entitytracker:GetEntity("key") == nil then
+    if not IsSpecialEventActive(SPECIAL_EVENTS.WINTERS_FEAST) and TheWorld.state.cycles >= inst.despawnday and
+        inst.components.entitytracker:GetEntity("klaus") == nil and inst.components.entitytracker:GetEntity("key") ==
+        nil then
         inst:Remove()
     end
 end
@@ -297,7 +240,7 @@ local function fn()
 
     inst.MiniMapEntity:SetIcon("klaus_sack.png")
 
-    --klaussacklock (from klaussacklock component) added to pristine state for optimization
+    -- klaussacklock (from klaussacklock component) added to pristine state for optimization
     inst:AddTag("klaussacklock")
 
     inst:AddTag("antlion_sinkhole_blocker")
@@ -324,7 +267,9 @@ local function fn()
 
     TheWorld:PushEvent("ms_registerklaussack", inst)
 
-    inst.OnDropKey = function(klaus, key) OnDropKey(inst, key, klaus) end
+    inst.OnDropKey = function(klaus, key)
+        OnDropKey(inst, key, klaus)
+    end
 
     inst.OnSave = OnSave
     inst.OnLoad = OnLoad

@@ -1,16 +1,10 @@
 require "prefabutil"
 
-local assets_item =
-{
-    Asset("ANIM", "anim/portable_spicer.zip"),
-    Asset("ATLAS", "images/inventoryimages/perkportablespicer.xml"),
-    Asset("IMAGE", "images/inventoryimages/perkportablespicer.tex"),
-}
+local assets_item = {Asset("ANIM", "anim/portable_spicer.zip"),
+                     Asset("ATLAS", "images/inventoryimages/perkportablespicer.xml"),
+                     Asset("IMAGE", "images/inventoryimages/perkportablespicer.tex")}
 
-local prefabs_item =
-{
-    "portablespicer",
-}
+local prefabs_item = {"portablespicer"}
 
 ---------------------------------------------------------------
 ----------------- Inventory Portable Spicer -------------------
@@ -62,8 +56,8 @@ local function itemfn()
     inst:AddComponent("deployable")
     inst.components.deployable.restrictedtag = "masterchef"
     inst.components.deployable.ondeploy = ondeploy
-    --inst.components.deployable:SetDeployMode(DEPLOYMODE.ANYWHERE)
-    --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
+    -- inst.components.deployable:SetDeployMode(DEPLOYMODE.ANYWHERE)
+    -- inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
     inst:AddComponent("hauntable")
     inst.components.hauntable:SetHauntValue(TUNING.HAUNT_TINY)

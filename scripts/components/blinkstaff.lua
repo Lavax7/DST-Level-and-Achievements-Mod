@@ -64,8 +64,7 @@ local function OnBlinked(caster, self, dpt)
 end
 
 function BlinkStaff:Blink(pt, caster)
-    if (caster.sg ~= nil and caster.sg.currentstate.name ~= "quicktele") or
-        not TheWorld.Map:IsPassableAtPoint(pt:Get()) or
+    if (caster.sg ~= nil and caster.sg.currentstate.name ~= "quicktele") or not TheWorld.Map:IsPassableAtPoint(pt:Get()) or
         TheWorld.Map:IsGroundTargetBlocked(pt) then
         return false
     elseif self.blinktask ~= nil then

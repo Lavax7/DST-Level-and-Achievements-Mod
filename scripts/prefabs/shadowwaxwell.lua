@@ -1,14 +1,9 @@
-local prefabs =
-{
-    "shadow_despawn",
-    "statue_transition_2",
-    "nightmarefuel",
-}
+local prefabs = {"shadow_despawn", "statue_transition_2", "nightmarefuel"}
 
 local brain = require "brains/shadowwaxwellbrain"
 
-local function findprefab(list,prefab)
-    for index,value in pairs(list) do
+local function findprefab(list, prefab)
+    for index, value in pairs(list) do
         if value == prefab then
             return true
         end
@@ -17,8 +12,7 @@ end
 
 local function OnAttacked(inst, data)
     if data.attacker ~= nil then
-        if data.attacker.components.petleash ~= nil and
-            data.attacker.components.petleash:IsPet(inst) then
+        if data.attacker.components.petleash ~= nil and data.attacker.components.petleash:IsPet(inst) then
             if inst.components.lootdropper == nil then
                 inst:AddComponent("lootdropper")
             end
@@ -31,30 +25,20 @@ local function OnAttacked(inst, data)
 end
 
 local function retargetfn(inst)
-    --Find things attacking leader
+    -- Find things attacking leader
     local leader = inst.components.follower:GetLeader()
-    return leader ~= nil
-        and FindEntity(
-            leader,
-            TUNING.SHADOWWAXWELL_TARGET_DIST,
-            function(guy)
-                return guy ~= inst
-                    and (guy.components.combat:TargetIs(leader) or
-                        guy.components.combat:TargetIs(inst))
-                    and inst.components.combat:CanTarget(guy)
-            end,
-            { "_combat" }, -- see entityreplica.lua
-            { "playerghost", "INLIMBO" }
-        )
-        or nil
+    return leader ~= nil and FindEntity(leader, TUNING.SHADOWWAXWELL_TARGET_DIST, function(guy)
+        return guy ~= inst and (guy.components.combat:TargetIs(leader) or guy.components.combat:TargetIs(inst)) and
+                   inst.components.combat:CanTarget(guy)
+    end, {"_combat"}, -- see entityreplica.lua
+    {"playerghost", "INLIMBO"}) or nil
 end
 
 local function keeptargetfn(inst, target)
-    --Is your leader nearby and your target not dead? Stay on it.
-    --Match KEEP_WORKING_DIST in brain
-    return inst.components.follower:IsNearLeader(14)
-        and inst.components.combat:CanTarget(target)
-        and target.components.minigame_participator == nil
+    -- Is your leader nearby and your target not dead? Stay on it.
+    -- Match KEEP_WORKING_DIST in brain
+    return inst.components.follower:IsNearLeader(14) and inst.components.combat:CanTarget(target) and
+               target.components.minigame_participator == nil
 end
 
 local function spearfn(inst)
@@ -63,8 +47,8 @@ local function spearfn(inst)
 
     inst.components.combat:SetDefaultDamage(TUNING.SHADOWWAXWELL_DAMAGE)
     inst.components.combat:SetAttackPeriod(TUNING.SHADOWWAXWELL_ATTACK_PERIOD)
-    inst.components.combat:SetRetargetFunction(2, retargetfn) --Look for leader's target.
-    inst.components.combat:SetKeepTargetFunction(keeptargetfn) --Keep attacking while leader is near.
+    inst.components.combat:SetRetargetFunction(2, retargetfn) -- Look for leader's target.
+    inst.components.combat:SetKeepTargetFunction(keeptargetfn) -- Keep attacking while leader is near.
 
     return inst
 end
@@ -82,12 +66,8 @@ local function nodebrisdmg(inst, amount, overtime, cause, ignore_invincible, aff
 end
 
 local function MakeMinion(prefab, tool, hat, master_postinit)
-    local assets =
-    {
-        Asset("ANIM", "anim/waxwell_shadow_mod.zip"),
-        Asset("SOUND", "sound/maxwell.fsb"),
-        Asset("ANIM", "anim/"..tool..".zip"),
-    }
+    local assets = {Asset("ANIM", "anim/waxwell_shadow_mod.zip"), Asset("SOUND", "sound/maxwell.fsb"),
+                    Asset("ANIM", "anim/" .. tool .. ".zip")}
 
     local function fn()
         local inst = CreateEntity()
@@ -136,7 +116,9 @@ local function MakeMinion(prefab, tool, hat, master_postinit)
 
         inst:AddComponent("locomotor")
         inst.components.locomotor.runspeed = TUNING.SHADOWWAXWELL_SPEED
-        inst.components.locomotor.pathcaps = { ignorecreep = true }
+        inst.components.locomotor.pathcaps = {
+            ignorecreep = true
+        }
         inst.components.locomotor:SetSlowMultiplier(.6)
 
         inst:AddComponent("health")
@@ -158,43 +140,48 @@ local function MakeMinion(prefab, tool, hat, master_postinit)
 
         inst:ListenForEvent("attacked", OnAttacked)
 
-        local rocklist = {"marbletree", "marblepillar",
-                          "rock_ice", "rock_ice_tall", "rock_ice_medium", "rock_ice_short",
-                          "stalagmite", "stalagmite_full", "stalagmite_med", "stalagmite_low", 
-                          "stalagmite_tall", "stalagmite_tall_full", "stalagmite_tall_med", "stalagmite_tall_low", 
-        }
+        local rocklist = {"marbletree", "marblepillar", "rock_ice", "rock_ice_tall", "rock_ice_medium",
+                          "rock_ice_short", "stalagmite", "stalagmite_full", "stalagmite_med", "stalagmite_low",
+                          "stalagmite_tall", "stalagmite_tall_full", "stalagmite_tall_med", "stalagmite_tall_low"}
 
         inst:ListenForEvent("finishedwork", function(inst, data)
-            if inst.prefab == "shadowminer" and data.target and (data.target:HasTag("boulder") or 
-                                data.target:HasTag("statue") or 
-                                findprefab(rocklist, data.target.prefab)) then
+            if inst.prefab == "shadowminer" and data.target and
+                (data.target:HasTag("boulder") or data.target:HasTag("statue") or
+                    findprefab(rocklist, data.target.prefab)) then
                 local pos = Vector3(inst.Transform:GetWorldPosition())
-                local ents = TheSim:FindEntities(pos.x,pos.y,pos.z, 30)
-                for k,v in pairs(ents) do
-                    if v:HasTag("player") and v.prefab == "waxwell" and (v.components.allachivevent.minemaster ~= true or v.components.allachivevent.mineappren ~= true) then
+                local ents = TheSim:FindEntities(pos.x, pos.y, pos.z, 30)
+                for k, v in pairs(ents) do
+                    if v:HasTag("player") and v.prefab == "waxwell" and
+                        (v.components.allachivevent.minemaster ~= true or v.components.allachivevent.mineappren ~= true) then
                         v.components.allachivevent.mineamount = v.components.allachivevent.mineamount + 1
-                        if v.components.allachivevent.mineamount >= allachiv_eventdata["mineappren"] and v.components.allachivevent.mineappren ~= true then
+                        if v.components.allachivevent.mineamount >= allachiv_eventdata["mineappren"] and
+                            v.components.allachivevent.mineappren ~= true then
                             v.components.allachivevent.mineappren = true
                             v.components.allachivevent:seffc(v, "mineappren")
-                            end
-                        if v.components.allachivevent.mineamount >= allachiv_eventdata["minemaster"] and v.components.allachivevent.minemaster ~= true then
+                        end
+                        if v.components.allachivevent.mineamount >= allachiv_eventdata["minemaster"] and
+                            v.components.allachivevent.minemaster ~= true then
                             v.components.allachivevent.minemaster = true
                             v.components.allachivevent:seffc(v, "minemaster")
                         end
                     end
                 end
             end
-            if (inst.prefab == "shadowlumber" or inst.prefab == "shadowdigger") and data.target and data.target:HasTag("tree") then
+            if (inst.prefab == "shadowlumber" or inst.prefab == "shadowdigger") and data.target and
+                data.target:HasTag("tree") then
                 local pos = Vector3(inst.Transform:GetWorldPosition())
-                local ents = TheSim:FindEntities(pos.x,pos.y,pos.z, 30)
-                for k,v in pairs(ents) do
-                    if v:HasTag("player") and v.prefab == "waxwell" and (v.components.allachivevent.chopmaster ~= true or v.components.allachivevent.chopappren ~= true) then
+                local ents = TheSim:FindEntities(pos.x, pos.y, pos.z, 30)
+                for k, v in pairs(ents) do
+                    if v:HasTag("player") and v.prefab == "waxwell" and
+                        (v.components.allachivevent.chopmaster ~= true or v.components.allachivevent.chopappren ~= true) then
                         v.components.allachivevent.chopamount = v.components.allachivevent.chopamount + 1
-                        if v.components.allachivevent.chopamount >= allachiv_eventdata["chopappren"] and v.components.allachivevent.chopappren ~= true then
+                        if v.components.allachivevent.chopamount >= allachiv_eventdata["chopappren"] and
+                            v.components.allachivevent.chopappren ~= true then
                             v.components.allachivevent.chopappren = true
                             v.components.allachivevent:seffc(v, "chopappren")
-                            end
-                        if v.components.allachivevent.chopamount >= allachiv_eventdata["chopmaster"] and v.components.allachivevent.chopmaster ~= true then
+                        end
+                        if v.components.allachivevent.chopamount >= allachiv_eventdata["chopmaster"] and
+                            v.components.allachivevent.chopmaster ~= true then
                             v.components.allachivevent.chopmaster = true
                             v.components.allachivevent:seffc(v, "chopmaster")
                         end
@@ -232,8 +219,8 @@ local function onbuilt(inst, builder)
 end
 
 local function MakeBuilder(prefab)
-    --These shadows are summoned this way because petleash needs to
-    --be the component that summons the pets, not the builder.
+    -- These shadows are summoned this way because petleash needs to
+    -- be the component that summons the pets, not the builder.
     local function fn()
         local inst = CreateEntity()
 
@@ -244,7 +231,7 @@ local function MakeBuilder(prefab)
         --[[Non-networked entity]]
         inst.persists = false
 
-        --Auto-remove if not spawned by builder
+        -- Auto-remove if not spawned by builder
         inst:DoTaskInTime(0, inst.Remove)
 
         if not TheWorld.ismastersim then
@@ -257,7 +244,7 @@ local function MakeBuilder(prefab)
         return inst
     end
 
-    return Prefab(prefab.."_builder", fn, nil, { prefab })
+    return Prefab(prefab .. "_builder", fn, nil, {prefab})
 end
 
 --------------------------------------------------------------------------
@@ -265,8 +252,5 @@ end
 return MakeMinion("shadowlumber", "swap_axe", nil, noncombatantfn),
     MakeMinion("shadowminer", "swap_pickaxe", nil, noncombatantfn),
     MakeMinion("shadowdigger", "swap_shovel", nil, noncombatantfn),
-    MakeMinion("shadowduelist", "swap_nightmaresword_shadow", nil, spearfn),
-    MakeBuilder("shadowlumber"),
-    MakeBuilder("shadowminer"),
-    MakeBuilder("shadowdigger"),
-    MakeBuilder("shadowduelist")
+    MakeMinion("shadowduelist", "swap_nightmaresword_shadow", nil, spearfn), MakeBuilder("shadowlumber"),
+    MakeBuilder("shadowminer"), MakeBuilder("shadowdigger"), MakeBuilder("shadowduelist")
