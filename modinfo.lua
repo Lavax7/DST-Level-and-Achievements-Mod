@@ -1,4 +1,4 @@
-name = [[Achievements and Level System]]
+name = [[Ama Fork - Achievements and Level System]]
 description = [[v3.7.1e
 Adds a achievement and leveling system to the game.
 To gain level xp eat food or kill monster.
