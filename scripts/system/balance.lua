@@ -11,6 +11,7 @@ speedGain = _G.SPEEDGAIN
 absorbGain = _G.ABSORBGAIN
 damageGain = _G.DAMAGEGAIN
 
+-- Achievement, Number of times required
 allachiv_eventdata = {
     -- Food
     ["firsteat"] = nil,
@@ -150,6 +151,7 @@ allachiv_eventdata = {
     ["pacifist"] = 60 * 40
 }
 
+-- Achievement, Number of points gained
 allachiv_coinget = {
     -- Food
     ["firsteat"] = 1,
@@ -289,7 +291,7 @@ allachiv_coinget = {
     ["pacifist"] = 3
 }
 
--- 奖励获得数值
+-- Perk, Amount Gained
 allachiv_coindata = {
     ["hungerup"] = 2,
     ["sanityup"] = 2,
@@ -307,7 +309,7 @@ allachiv_coindata = {
     ["cheatdeath"] = 900
 }
 
--- 奖励消耗点数
+-- Perk, Point Cost
 allachiv_coinuse = {
     ["hungerup"] = math.ceil(1 * _G.MULT_CONFIG),
     ["sanityup"] = math.ceil(1 * _G.MULT_CONFIG),
@@ -350,6 +352,8 @@ allachiv_coinuse = {
     ["animallover"] = math.ceil(15 * _G.MULT_CONFIG)
 }
 
+-- Weight values for raising achievements.
+-- Required points is calculated as: base cose + (points used / this) 
 levelcoststep = {
     ["hunger"] = 999,
     ["sanity"] = 999,
@@ -360,6 +364,9 @@ levelcoststep = {
     ["insulation"] = 20,
     ["insulationsummer"] = 20
 }
+
+-- Weight values for raising achievements.
+-- Required points is calculated as: base cose + (points used / this) 
 achievementcoststep = {
     ["hungerup"] = 999,
     ["sanityup"] = 999,
@@ -376,6 +383,7 @@ achievementcoststep = {
     ["fireflylightup"] = 4
 }
 
+-- ???
 if not _G.COSTRAISE_CONFIG then
     levelcoststep = {
         ["hunger"] = 999,
