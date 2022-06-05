@@ -443,6 +443,7 @@ function allachivcoin:OnSave()
         fastworker = self.fastworker,
         ancientstation = self.ancientstation
     }
+    
     return data
 end
 

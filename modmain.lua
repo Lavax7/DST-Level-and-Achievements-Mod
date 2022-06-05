@@ -768,6 +768,7 @@ local function hideMenus()
     uiachievementWidget.mainui.infobutton:Hide()
     uiachievementWidget.mainui.perk_cat:Hide()
 end
+
 local function Adduiachievement(self)
     self.uiachievement = self.top_root:AddChild(uiachievement(self.owner))
     uiachievementWidget = self.uiachievement
@@ -980,5 +981,3 @@ if GLOBAL.TUNING.TELEPORTATOMOD then
         end)
     end)
 end
--- ##################
--- ##################
