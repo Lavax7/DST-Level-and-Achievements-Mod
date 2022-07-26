@@ -400,7 +400,14 @@ function levelsystem:resetbuff(inst)
 end
 
 function levelsystem:onreroll(inst)
-    inst:ListenForEvent("ms_playerreroll", function(inst)
+    inst:ListenForEvent("ms_playerreroll", function(inst, displayName)
+				local name = ""
+				if(inst:GetDisplayName() == nil) then 
+					name = displayName
+				else
+					name = inst:GetDisplayName()
+				end
+
 				local returnattributepoints = 
 				self.hungerupamount +
 				self.sanityupamount +
@@ -418,13 +425,13 @@ function levelsystem:onreroll(inst)
 				SaveLevel["widgetXpos"] = self.widgetXpos or -1
 				SaveLevel["zoomlevel"] = self.zoomlevel or 1
 				SaveLevel["language"] = self.language or _G.LANGUAGE
-				LevelData[inst:GetDisplayName()] = SaveLevel
+				LevelData[name] = SaveLevel
     end)
 end
 
 function levelsystem:intogamefn(inst)
     inst:DoTaskInTime(3, function()
-		if self.overallxp == 0 and LevelData[inst:GetDisplayName()] ~= nil then
+		if self.overallxp == 0 and inst:GetDisplayName() ~= nil and LevelData[inst:GetDisplayName()] ~= nil then
 			local leveldata = LevelData[inst:GetDisplayName()]
 			self.level = leveldata["level"]
 			self.levelxp = leveldata["levelxp"]

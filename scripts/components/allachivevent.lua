@@ -939,7 +939,7 @@ function allachivevent:intogamefn(inst)
     inst:DoTaskInTime(3, function()
         if self.intogame ~= true then
             self.intogame = true
-            if AchievementData[inst:GetDisplayName()] ~= nil then
+            if inst:GetDisplayName() ~= nil and AchievementData[inst:GetDisplayName()] ~= nil then
                 --print("LOAD")
 				local achievements = AchievementData[inst:GetDisplayName()]
                 self.firsteat = achievements["firsteat"]
@@ -2896,7 +2896,13 @@ function allachivevent:onteleport(inst)
 end
 
 function allachivevent:onreroll(inst)
-    inst:ListenForEvent("ms_playerreroll", function(inst)
+    inst:ListenForEvent("ms_playerreroll", function(inst, displayName)
+				local name = ""
+				if(inst:GetDisplayName() == nil) then 
+					name = displayName
+				else
+					name = inst:GetDisplayName()
+				end
                 local SaveAchieve = {}
                 SaveAchieve["intogame"] = self.intogame or false
                 SaveAchieve["firsteat"] = self.firsteat or false
@@ -3116,7 +3122,7 @@ function allachivevent:onreroll(inst)
 				SaveAchieve["pacifist"] = self.pacifist or false
 				SaveAchieve["pacifistamount"] = self.pacifistamount or 0
                 SaveAchieve["totalstar"] = inst.components.allachivcoin.coinamount + math.ceil(inst.components.allachivcoin.starsspent)
-				AchievementData[inst:GetDisplayName()] = SaveAchieve
+				AchievementData[name] = SaveAchieve
                 --print("SAVED")
     end)
 end
@@ -3437,7 +3443,7 @@ function allachivevent:allget(inst)
                                 end)
                             end
                         end)
-						print(self.runcount, _G._G.PLAYS_CONFIG)
+						--print(self.runcount, _G._G.PLAYS_CONFIG)
 						if self.runcount < _G.PLAYS_CONFIG then
 							self.runcount = self.runcount + 1
 							self.all = false						
