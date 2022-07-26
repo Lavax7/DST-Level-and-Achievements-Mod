@@ -5,6 +5,10 @@ ToDo:
 -limit PlaySound on coin or levelpoint use to the player
 -change fuelreaver achievement to include celestial guardian
 
+3.7.2 Changes:
+fixed crash with wonkey
+- do not change character at portal when in wonkey form, all stars and level will be lost.
+
 3.7.1e Changes:
 Count Eye of Terror as follower
 
