@@ -166,261 +166,362 @@ Assets = {
 }
 AddMinimapAtlas("images/inventoryimages/altar.xml")
 
-STRINGS.NAMES.PERK_TAB = "REWARD"
-STRINGS.TABS.PERK_TAB = "Rewards"
-GLOBAL.RECIPETABS['PERK_TAB'] = {str = "PERK_TAB", sort=25, icon = "perk_tab.tex", icon_atlas = "images/inventoryimages/perk_tab.xml"}
+AddRecipeFilter({ name = "REWARD", atlas = "images/inventoryimages/perk_tab.xml", image ="perk_tab.tex"})
+STRINGS.UI.CRAFTING_FILTERS.REWARD = "Rewards"
 
-local birds = AddRecipe("book_birds_perk",	{Ingredient("papyrus", 2),Ingredient("bird_egg", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "achivbookbuilder")
-birds.image = "book_birds.tex"
-birds.product = "book_birds"
-GLOBAL.STRINGS.RECIPE_DESC.BOOK_BIRDS_PERK = GLOBAL.STRINGS.RECIPE_DESC.BOOK_BIRDS
-GLOBAL.STRINGS.NAMES.BOOK_BIRDS_PERK = GLOBAL.STRINGS.NAMES.BOOK_BIRDS
+AddRecipe2("book_birds_perk", -- name
+	{Ingredient("papyrus", 2),Ingredient("bird_egg", 2),},-- ingredients
+	TECH.NONE, -- tech
+	{ product = "book_birds",builder_tag = "achivbookbuilder",numtogive = 1,image = "book_birds.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local sleep = AddRecipe("book_sleep_perk",	{Ingredient("papyrus", 2), Ingredient("nightmarefuel", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "achivbookbuilder")
-sleep.image = "book_sleep.tex"
-sleep.product = "book_sleep"
-GLOBAL.STRINGS.RECIPE_DESC.BOOK_SLEEP_PERK = GLOBAL.STRINGS.RECIPE_DESC.BOOK_SLEEP
-GLOBAL.STRINGS.NAMES.BOOK_SLEEP_PERK = GLOBAL.STRINGS.NAMES.BOOK_SLEEP
+AddRecipe2("book_sleep_perk", -- name
+	{Ingredient("papyrus", 2),Ingredient("nightmarefuel", 2),},-- ingredients
+	TECH.NONE, -- tech
+	{ product = "book_sleep",builder_tag = "achivbookbuilder",numtogive = 1,image = "book_sleep.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local brim = AddRecipe("book_brimstone_perk",	{Ingredient("papyrus", 2), Ingredient("redgem", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "achivbookbuilder")
-brim.image = "book_brimstone.tex"
-brim.product = "book_brimstone"
-GLOBAL.STRINGS.RECIPE_DESC.BOOK_BRIMSTONE_PERK = GLOBAL.STRINGS.RECIPE_DESC.BOOK_BRIMSTONE
-GLOBAL.STRINGS.NAMES.BOOK_BRIMSTONE_PERK = GLOBAL.STRINGS.NAMES.BOOK_BRIMSTONE
+AddRecipe2("book_brimstone_perk", -- name
+	{Ingredient("papyrus", 2),Ingredient("redgem", 1),},-- ingredients
+	TECH.NONE, -- tech
+	{ product = "book_brimstone",builder_tag = "achivbookbuilder",numtogive = 1,image = "book_brimstone.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local tenta = AddRecipe("book_tentacles_perk",	{Ingredient("papyrus", 2), Ingredient("tentaclespots", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "achivbookbuilder")
-tenta.image = "book_tentacles.tex"
-tenta.product = "book_tentacles"
-GLOBAL.STRINGS.RECIPE_DESC.BOOK_TENTACLES_PERK = GLOBAL.STRINGS.RECIPE_DESC.BOOK_TENTACLES
-GLOBAL.STRINGS.NAMES.BOOK_TENTACLES_PERK = GLOBAL.STRINGS.NAMES.BOOK_TENTACLES
+AddRecipe2("book_tentacles_perk", -- name
+	{Ingredient("papyrus", 2),Ingredient("tentaclespots", 1),},-- ingredients
+	TECH.NONE, -- tech
+	{ product = "book_tentacles",builder_tag = "achivbookbuilder",numtogive = 1,image = "book_tentacles.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local horti = AddRecipe("book_horticulture_perk",	{Ingredient("papyrus", 2), Ingredient("seeds", 5), Ingredient("poop", 5)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "achivbookbuilder")
-horti.image = "book_horticulture.tex"
-horti.product = "book_horticulture"
-GLOBAL.STRINGS.RECIPE_DESC.BOOK_HORTICULTURE_PERK = GLOBAL.STRINGS.RECIPE_DESC.BOOK_HORTICULTURE
-GLOBAL.STRINGS.NAMES.BOOK_HORTICULTURE_PERK = GLOBAL.STRINGS.NAMES.BOOK_HORTICULTURE
+AddRecipe2("book_horticulture_perk", -- name
+	{Ingredient("papyrus", 2),Ingredient("seeds", 5),Ingredient("poop", 5)},-- ingredients
+	TECH.NONE, -- tech
+	{ product = "book_horticulture",builder_tag = "achivbookbuilder",numtogive = 1,image = "book_horticulture.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local silvi = AddRecipe("book_silviculture_perk", {Ingredient("papyrus", 2), Ingredient("livinglog", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "achivbookbuilder")
-silvi.image = "book_silviculture.tex"
-silvi.product = "book_silviculture"
-GLOBAL.STRINGS.RECIPE_DESC.BOOK_SILVICULTURE_PERK = GLOBAL.STRINGS.RECIPE_DESC.BOOK_SILVICULTURE
-GLOBAL.STRINGS.NAMES.BOOK_SILVICULTURE_PERK = GLOBAL.STRINGS.NAMES.BOOK_SILVICULTURE
+AddRecipe2("book_silviculture_perk", -- name
+	{Ingredient("papyrus", 2),Ingredient("livinglog", 1),},-- ingredients
+	TECH.NONE, -- tech
+	{ product = "book_silviculture",builder_tag = "achivbookbuilder",numtogive = 1,image = "book_silviculture.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
 --Winonas Engineering Items
-local tape = AddRecipe("sewing_tape_perk", {Ingredient("cutgrass", 6), Ingredient("silk", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "engineering")
-tape.image = "sewing_tape.tex"
-tape.product = "sewing_tape"
-GLOBAL.STRINGS.RECIPE_DESC.SEWING_TAPE_PERK = GLOBAL.STRINGS.RECIPE_DESC.SEWING_TAPE
-GLOBAL.STRINGS.NAMES.SEWING_TAPE_PERK = GLOBAL.STRINGS.NAMES.SEWING_TAPE
+AddRecipe2("sewing_tape_perk", -- name
+	{Ingredient("cutgrass", 6), Ingredient("silk", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ product = "sewing_tape",builder_tag = "engineering",numtogive = 1,image = "sewing_tape.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local catapult = AddRecipe("winona_catapult_perk", {Ingredient("sewing_tape", 1), Ingredient("twigs", 8), Ingredient("rocks", 20)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "winona_catapult_placer", TUNING.WINONA_ENGINEERING_SPACING, nil, nil, "engineering")
-catapult.image = "winona_catapult.tex"
-catapult.product = "winona_catapult"
-GLOBAL.STRINGS.RECIPE_DESC.WINONA_CATAPULT_PERK = GLOBAL.STRINGS.RECIPE_DESC.WINONA_CATAPULT
-GLOBAL.STRINGS.NAMES.WINONA_CATAPULT_PERK = GLOBAL.STRINGS.NAMES.WINONA_CATAPULT
+AddRecipe2("winona_catapult_perk", -- name
+	{Ingredient("sewing_tape", 1), Ingredient("twigs", 8), Ingredient("rocks", 20)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "winona_catapult",
+		builder_tag = "engineering",
+		placer = "winona_catapult_placer",
+		min_spacing = TUNING.WINONA_ENGINEERING_SPACING,
+		nounlock = false,
+		image = "winona_catapult.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local spotlight = AddRecipe("winona_spotlight_perk", {Ingredient("sewing_tape", 1), Ingredient("goldnugget", 4), Ingredient("fireflies", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "winona_spotlight_placer", TUNING.WINONA_ENGINEERING_SPACING, nil, nil, "engineering")
-spotlight.image = "winona_spotlight.tex"
-spotlight.product = "winona_spotlight"
-GLOBAL.STRINGS.RECIPE_DESC.WINONA_SPOTLIGHT_PERK = GLOBAL.STRINGS.RECIPE_DESC.WINONA_SPOTLIGHT
-GLOBAL.STRINGS.NAMES.WINONA_SPOTLIGHT_PERK = GLOBAL.STRINGS.NAMES.WINONA_SPOTLIGHT
+AddRecipe2("winona_spotlight_perk", -- name
+	{Ingredient("sewing_tape", 1), Ingredient("goldnugget", 4), Ingredient("fireflies", 1)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "winona_spotlight",
+		builder_tag = "engineering",
+		placer = "winona_spotlight_placer",
+		min_spacing = TUNING.WINONA_ENGINEERING_SPACING,
+		nounlock = false,
+		image = "winona_spotlight.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local generator = AddRecipe("winona_battery_low_perk", {Ingredient("sewing_tape", 1), Ingredient("log", 4), Ingredient("nitre", 4)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "winona_battery_low_placer", TUNING.WINONA_ENGINEERING_SPACING, nil, nil, "engineering")
-generator.image = "winona_battery_low.tex"
-generator.product = "winona_battery_low"
-GLOBAL.STRINGS.RECIPE_DESC.WINONA_BATTERY_LOW_PERK = GLOBAL.STRINGS.RECIPE_DESC.WINONA_BATTERY_LOW
-GLOBAL.STRINGS.NAMES.WINONA_BATTERY_LOW_PERK = GLOBAL.STRINGS.NAMES.WINONA_BATTERY_LOW
+AddRecipe2("winona_battery_low_perk", -- name
+	{Ingredient("sewing_tape", 1), Ingredient("log", 4), Ingredient("nitre", 4)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "winona_battery_low",
+		builder_tag = "engineering",
+		placer = "winona_battery_low_placer",
+		min_spacing = TUNING.WINONA_ENGINEERING_SPACING,
+		nounlock = false,
+		image = "winona_battery_low.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local gemerator = AddRecipe("winona_battery_high_perk", {Ingredient("sewing_tape", 1), Ingredient("boards", 4), Ingredient("transistor", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "winona_battery_high_placer", TUNING.WINONA_ENGINEERING_SPACING, nil, nil, "engineering")
-gemerator.image = "winona_battery_high.tex"
-gemerator.product = "winona_battery_high"
-GLOBAL.STRINGS.RECIPE_DESC.WINONA_BATTERY_HIGH_PERK = GLOBAL.STRINGS.RECIPE_DESC.WINONA_BATTERY_HIGH
-GLOBAL.STRINGS.NAMES.WINONA_BATTERY_HIGH_PERK = GLOBAL.STRINGS.NAMES.WINONA_BATTERY_HIGH
+AddRecipe2("winona_battery_high_perk", -- name
+	{Ingredient("sewing_tape", 1), Ingredient("boards", 4), Ingredient("transistor", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "winona_battery_high",
+		builder_tag = "engineering",
+		placer = "winona_battery_high_placer",
+		min_spacing = TUNING.WINONA_ENGINEERING_SPACING,
+		nounlock = false,
+		image = "winona_battery_high.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
 --Shrines
-local perk_festive_gobbler = AddRecipe("perdshrine_perk", {Ingredient("goldnugget", 8), Ingredient("boards", 2), Ingredient("berries", 3)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "perdshrine_placer", nil, nil, nil, "shrine")
-perk_festive_gobbler.image = "perdshrine.tex"
-perk_festive_gobbler.product = "perdshrine"
-GLOBAL.STRINGS.RECIPE_DESC.PERDSHRINE_PERK = GLOBAL.STRINGS.RECIPE_DESC.PERDSHRINE
-GLOBAL.STRINGS.NAMES.PERDSHRINE_PERK = GLOBAL.STRINGS.NAMES.PERDSHRINE
+AddRecipe2("perdshrine_perk", -- name
+	{Ingredient("goldnugget", 8), Ingredient("boards", 2), Ingredient("berries", 3)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "perdshrine",
+		builder_tag = "shrine",
+		placer = "perdshrine_placer",
+		nounlock = false,
+		image = "perdshrine.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local perk_festive_varg = AddRecipe("wargshrine_perk", {Ingredient("goldnugget", 8), Ingredient("boards", 2), Ingredient("monstermeat", 4)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "wargshrine_placer", nil, nil, nil, "shrine")
-perk_festive_varg.image = "wargshrine.tex"
-perk_festive_varg.product = "wargshrine"
-GLOBAL.STRINGS.RECIPE_DESC.WARGSHRINE_PERK = GLOBAL.STRINGS.RECIPE_DESC.WARGSHRINE
-GLOBAL.STRINGS.NAMES.WARGSHRINE_PERK = GLOBAL.STRINGS.NAMES.WARGSHRINE
+AddRecipe2("wargshrine_perk", -- name
+	{Ingredient("goldnugget", 8), Ingredient("boards", 2), Ingredient("monstermeat", 4)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "wargshrine",
+		builder_tag = "shrine",
+		placer = "wargshrine_placer",
+		nounlock = false,
+		image = "wargshrine.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local perk_festive_pig = AddRecipe("pigshrine_perk", {Ingredient("goldnugget", 8), Ingredient("boards", 2), Ingredient("pigskin", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "pigshrine_placer", nil, nil, nil, "shrine")
-perk_festive_pig.image = "pigshrine.tex"
-perk_festive_pig.product = "pigshrine"
-GLOBAL.STRINGS.RECIPE_DESC.PIGSHRINE_PERK = GLOBAL.STRINGS.RECIPE_DESC.PIGSHRINE
-GLOBAL.STRINGS.NAMES.PIGSHRINE_PERK = GLOBAL.STRINGS.NAMES.PIGSHRINE
+AddRecipe2("pigshrine_perk", -- name
+	{Ingredient("goldnugget", 8), Ingredient("boards", 2), Ingredient("pigskin", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "pigshrine",
+		builder_tag = "shrine",
+		placer = "pigshrine_placer",
+		nounlock = false,
+		image = "pigshrine.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local perk_festive_lab = AddRecipe("madscience_lab_perk", {Ingredient("transistor", 2), Ingredient("cutstone", 2), Ingredient("phlegm", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "madscience_lab_placer", nil, nil, nil, "shrine")
-perk_festive_lab.image = "madscience_lab.tex"
-perk_festive_lab.product = "madscience_lab"
-GLOBAL.STRINGS.RECIPE_DESC.MADSCIENCE_LAB_PERK = GLOBAL.STRINGS.RECIPE_DESC.MADSCIENCE_LAB
-GLOBAL.STRINGS.NAMES.MADSCIENCE_LAB_PERK = GLOBAL.STRINGS.NAMES.MADSCIENCE_LAB
+AddRecipe2("madscience_lab_perk", -- name
+	{Ingredient("transistor", 2), Ingredient("cutstone", 2), Ingredient("phlegm", 1)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "madscience_lab",
+		builder_tag = "shrine",
+		placer = "madscience_lab_placer",
+		nounlock = false,
+		image = "madscience_lab.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local perk_festive_bag = AddRecipe("candybag_perk", {Ingredient("cutgrass", 6)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "shrine")
-perk_festive_bag.image = "candybag.tex"
-perk_festive_bag.product = "candybag"
-GLOBAL.STRINGS.RECIPE_DESC.CANDYBAG_PERK = GLOBAL.STRINGS.RECIPE_DESC.CANDYBAG
-GLOBAL.STRINGS.NAMES.CANDYBAG_PERK = GLOBAL.STRINGS.NAMES.CANDYBAG
+AddRecipe2("candybag_perk", -- name
+	{Ingredient("cutgrass", 6)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "candybag",
+		builder_tag = "shrine",
+		numtogive = 1,
+		image = "candybag.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local perk_festive_tree = AddRecipe("winter_treestand_perk", {Ingredient("poop", 4), Ingredient("boards", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, "winter_treestand_placer", nil, nil, nil, "shrine")
-perk_festive_tree.image = "winter_treestand.tex"
-perk_festive_tree.product = "winter_treestand"
-GLOBAL.STRINGS.RECIPE_DESC.WINTER_TREESTAND_PERK = GLOBAL.STRINGS.RECIPE_DESC.WINTER_TREESTAND
-GLOBAL.STRINGS.NAMES.WINTER_TREESTAND_PERK = GLOBAL.STRINGS.NAMES.WINTER_TREESTAND
+AddRecipe2("winter_treestand_perk", -- name
+	{Ingredient("poop", 4), Ingredient("boards", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "winter_treestand",
+		builder_tag = "shrine",
+		placer = "winter_treestand_placer",
+		nounlock = false,
+		image = "winter_treestand.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local perk_festive_wrap = AddRecipe("giftwrap_perk", {Ingredient("papyrus", 2), Ingredient("rope", 1), Ingredient("petals", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "shrine")
-perk_festive_wrap.image = "giftwrap.tex"
-perk_festive_wrap.product = "giftwrap"
-GLOBAL.STRINGS.RECIPE_DESC.GIFTWRAP_PERK = GLOBAL.STRINGS.RECIPE_DESC.GIFTWRAP
-GLOBAL.STRINGS.NAMES.GIFTWRAP_PERK = GLOBAL.STRINGS.NAMES.GIFTWRAP
+AddRecipe2("giftwrap_perk", -- name
+	{Ingredient("papyrus", 2), Ingredient("rope", 1), Ingredient("petals", 1)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "giftwrap",
+		builder_tag = "shrine",
+		numtogive = 1,
+		image = "giftwrap.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
 ---WORMWOOD Items
-local livinglog = AddRecipe("livinglog_perk", {Ingredient(GLOBAL.CHARACTER_INGREDIENT.HEALTH, 25), Ingredient("log", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "naturalist")
-livinglog.image = "livinglog.tex"
-livinglog.product = "livinglog"
-GLOBAL.STRINGS.RECIPE_DESC.LIVINGLOG_PERK = GLOBAL.STRINGS.RECIPE_DESC.LIVINGLOG
-GLOBAL.STRINGS.NAMES.LIVINGLOG_PERK = GLOBAL.STRINGS.NAMES.LIVINGLOG
+AddRecipe2("livinglog_perk", -- name
+	{Ingredient(GLOBAL.CHARACTER_INGREDIENT.HEALTH, 25), Ingredient("log", 1)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "livinglog",
+		builder_tag = "naturalist",
+		numtogive = 1,
+		image = "livinglog.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local armor_bramble = AddRecipe("armor_bramble_perk", {Ingredient("livinglog", 3), Ingredient("boneshard", 6)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "naturalist")
-armor_bramble.image = "armor_bramble.tex"
-armor_bramble.product = "armor_bramble"
-GLOBAL.STRINGS.RECIPE_DESC.ARMOR_BRAMBLE_PERK = GLOBAL.STRINGS.RECIPE_DESC.ARMOR_BRAMBLE
-GLOBAL.STRINGS.NAMES.ARMOR_BRAMBLE_PERK = GLOBAL.STRINGS.NAMES.ARMOR_BRAMBLE
+AddRecipe2("armor_bramble_perk", -- name
+	{Ingredient("livinglog", 3), Ingredient("boneshard", 6)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "armor_bramble",
+		builder_tag = "naturalist",
+		numtogive = 1,
+		image = "armor_bramble.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local trap_bramble = AddRecipe("trap_bramble_perk", {Ingredient("livinglog", 2), Ingredient("stinger", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "naturalist")
-trap_bramble.image = "trap_bramble.tex"
-trap_bramble.product = "trap_bramble"
-GLOBAL.STRINGS.RECIPE_DESC.TRAP_BRAMBLE_PERK = GLOBAL.STRINGS.RECIPE_DESC.TRAP_BRAMBLE
-GLOBAL.STRINGS.NAMES.TRAP_BRAMBLE_PERK = GLOBAL.STRINGS.NAMES.TRAP_BRAMBLE
+AddRecipe2("trap_bramble_perk", -- name
+	{Ingredient("livinglog", 2), Ingredient("stinger", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "trap_bramble",
+		builder_tag = "naturalist",
+		numtogive = 1,
+		image = "trap_bramble.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local compostwrap = AddRecipe("compostwrap_perk", {Ingredient("poop", 6), Ingredient("spoiled_food", 3), Ingredient("nitre", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "naturalist")
-compostwrap.image = "compostwrap.tex"
-compostwrap.product = "compostwrap"
-GLOBAL.STRINGS.RECIPE_DESC.COMPOSTWRAP_PERK = GLOBAL.STRINGS.RECIPE_DESC.COMPOSTWRAP
-GLOBAL.STRINGS.NAMES.COMPOSTWRAP_PERK = GLOBAL.STRINGS.NAMES.COMPOSTWRAP
+AddRecipe2("compostwrap_perk", -- name
+	{Ingredient("poop", 6), Ingredient("spoiled_food", 3), Ingredient("nitre", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "compostwrap",
+		builder_tag = "naturalist",
+		numtogive = 1,
+		image = "compostwrap.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
 ---MOON ALTAR
-local moonglassaxe = AddRecipe("moonglassaxe_perk", {Ingredient("twigs", 4), Ingredient("moonglass", 4)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "lunarcraft")
-moonglassaxe.image = "moonglassaxe.tex"
-moonglassaxe.product = "moonglassaxe"
-GLOBAL.STRINGS.RECIPE_DESC.MOONGLASSAXE_PERK = GLOBAL.STRINGS.RECIPE_DESC.MOONGLASSAXE
-GLOBAL.STRINGS.NAMES.MOONGLASSAXE_PERK = GLOBAL.STRINGS.NAMES.MOONGLASSAXE
+AddRecipe2("moonglassaxe_perk", -- name
+	{Ingredient("twigs", 4), Ingredient("moonglass", 4)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "moonglassaxe",
+		builder_tag = "lunarcraft",
+		numtogive = 1,
+		image = "moonglassaxe.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local glasscutter = AddRecipe("glasscutter_perk", {Ingredient("boards", 2), Ingredient("moonglass", 7)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "lunarcraft")
-glasscutter.image = "glasscutter.tex"
-glasscutter.product = "glasscutter"
-GLOBAL.STRINGS.RECIPE_DESC.GLASSCUTTER_PERK = GLOBAL.STRINGS.RECIPE_DESC.GLASSCUTTER
-GLOBAL.STRINGS.NAMES.GLASSCUTTER_PERK = GLOBAL.STRINGS.NAMES.GLASSCUTTER
+AddRecipe2("glasscutter_perk", -- name
+	{Ingredient("boards", 2), Ingredient("moonglass", 7)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "glasscutter",
+		builder_tag = "lunarcraft",
+		numtogive = 1,
+		image = "glasscutter.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local turf_meteor = AddRecipe("turf_meteor_perk", {Ingredient("moonrocknugget", 1), Ingredient("moonglass", 3)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, 6, "lunarcraft")
-turf_meteor.image = "turf_meteor.tex"
-turf_meteor.product = "turf_meteor"
-GLOBAL.STRINGS.RECIPE_DESC.TURF_METEOR_PERK = GLOBAL.STRINGS.RECIPE_DESC.TURF_METEOR
-GLOBAL.STRINGS.NAMES.TURF_METEOR_PERK = GLOBAL.STRINGS.NAMES.TURF_METEOR
+AddRecipe2("turf_meteor_perk", -- name
+	{Ingredient("moonrocknugget", 1), Ingredient("moonglass", 3)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "turf_meteor",
+		builder_tag = "lunarcraft",
+		numtogive = 6,
+		image = "turf_meteor.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local bathbomb = AddRecipe("bathbomb_perk", {Ingredient("moon_tree_blossom", 8), Ingredient("nitre", 1)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "lunarcraft")
-bathbomb.image = "bathbomb.tex"
-bathbomb.product = "bathbomb"
-GLOBAL.STRINGS.RECIPE_DESC.BATHBOMB_PERK = GLOBAL.STRINGS.RECIPE_DESC.BATHBOMB
-GLOBAL.STRINGS.NAMES.BATHBOMB_PERK = GLOBAL.STRINGS.NAMES.BATHBOMB
+AddRecipe2("bathbomb_perk", -- name
+	{Ingredient("moon_tree_blossom", 8), Ingredient("nitre", 1)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "bathbomb",
+		builder_tag = "lunarcraft",
+		numtogive = 1,
+		image = "bathbomb.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local chesspiece_butterfly_sketch = AddRecipe("chesspiece_butterfly_sketch_perk", {Ingredient("papyrus", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "lunarcraft")
-chesspiece_butterfly_sketch.image = "chesspiece_butterfly_sketch.tex"
-chesspiece_butterfly_sketch.product = "chesspiece_butterfly_sketch"
-GLOBAL.STRINGS.RECIPE_DESC.CHESSPIECE_BUTTERFLY_SKETCH_PERK = GLOBAL.STRINGS.RECIPE_DESC.CHESSPIECE_BUTTERFLY_SKETCH
-GLOBAL.STRINGS.NAMES.CHESSPIECE_BUTTERFLY_SKETCH_PERK = GLOBAL.STRINGS.NAMES.CHESSPIECE_BUTTERFLY_SKETCH
+AddRecipe2("chesspiece_butterfly_sketch_perk", -- name
+	{Ingredient("papyrus", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "chesspiece_butterfly_sketch",
+		builder_tag = "lunarcraft",
+		numtogive = 1,
+		image = "chesspiece_butterfly_sketch.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-local chesspiece_moon_sketch = AddRecipe("chesspiece_moon_sketch_perk", {Ingredient("papyrus", 2)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "lunarcraft")
-chesspiece_moon_sketch.image = "chesspiece_moon_sketch.tex"
-chesspiece_moon_sketch.product = "chesspiece_moon_sketch"
-GLOBAL.STRINGS.RECIPE_DESC.CHESSPIECE_MOON_SKETCH_PERK = GLOBAL.STRINGS.RECIPE_DESC.CHESSPIECE_MOON_SKETCH
-GLOBAL.STRINGS.NAMES.CHESSPIECE_MOON_SKETCH_PERK = GLOBAL.STRINGS.NAMES.CHESSPIECE_MOON_SKETCH
+AddRecipe2("chesspiece_moon_sketch_perk", -- name
+	{Ingredient("papyrus", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "chesspiece_moon_sketch",
+		builder_tag = "lunarcraft",
+		numtogive = 1,
+		image = "chesspiece_moon_sketch.tex"}, -- config
+	{ "REWARD",} -- filters
+)
 
-AddRecipe("ancient_altar", {Ingredient("thulecite", 15), Ingredient("cutstone", 20), Ingredient("purplegem", 2)}, GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, 
-"ancient_altar_placer", --placer
-nil, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"ancientstation", -- builder_tag
-"images/inventoryimages/altar.xml", -- atlas
-"altar.tex") -- image
+AddRecipe2("ancient_altar", -- name
+	{Ingredient("thulecite", 15), Ingredient("cutstone", 20), Ingredient("purplegem", 2)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "ancient_altar",
+		builder_tag = "ancientstation",
+		placer = "ancient_altar_placer",
+		nounlock = false,
+		image = "altar.tex",
+		atlas = "images/inventoryimages/altar.xml"}, -- config
+	{ "REWARD",} -- filters
+)
 
-AddRecipe("klaus_sack", {Ingredient("redmooneye",1),Ingredient("bluemooneye",1),Ingredient("silk",8)}, GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, 
-"klaussack_placer", --placer
-nil, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"achiveking", -- builder_tag
-"images/inventoryimages/klaussack.xml", -- atlas
-"klaussack.tex") -- image
+AddRecipe2("klaus_sack", -- name
+	{Ingredient("redmooneye",1),Ingredient("bluemooneye",1),Ingredient("silk",8)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "klaus_sack",
+		builder_tag = "achiveking",
+		placer = "klaussack_placer",
+		nounlock = false,
+		image = "klaussack.tex",
+		atlas = "images/inventoryimages/klaussack.xml"}, -- config
+	{ "REWARD",} -- filters
+)
 
-AddRecipe("deer_antler1", {Ingredient("boneshard",2),Ingredient("twigs",1)}, GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, 
-nil, --placer
-nil, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"achiveking", -- builder_tag
-"images/inventoryimages.xml", -- atlas
-"deer_antler1.tex") -- image
+AddRecipe2("deer_antler1", -- name
+	{Ingredient("boneshard",2),Ingredient("twigs",1)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "deer_antler1",
+		builder_tag = "achiveking",
+		numtogive = 1,
+		image = "deer_antler1.tex",
+		atlas = "images/inventoryimages.xml"}, -- config
+	{ "REWARD",} -- filters
+)
+
 
 --ReAdd for Warly
-AddRecipe("portablecookpot_item", {Ingredient("goldnugget", 2) , Ingredient("charcoal", 6) , Ingredient("twigs", 6)},
-GLOBAL.RECIPETABS.FARM, TECH.NONE, nil, nil, nil, nil, "realchef")
-AddRecipe("portableblender_item", {Ingredient("goldnugget", 2) , Ingredient("transistor", 2) , Ingredient("twigs", 4)},
-GLOBAL.RECIPETABS.FARM, TECH.NONE, nil, nil, nil, nil, "realchef")
-AddRecipe("portablespicer_item", {Ingredient("goldnugget", 2) , Ingredient("cutstone", 6) , Ingredient("twigs", 6)},
-GLOBAL.RECIPETABS.FARM, TECH.NONE, nil, nil, nil, nil, "realchef")
+--AddRecipe("portablecookpot_item", {Ingredient("goldnugget", 2) , Ingredient("charcoal", 6) , Ingredient("twigs", 6)},
+--GLOBAL.RECIPETABS.FARM, TECH.NONE, nil, nil, nil, nil, "realchef")
+--AddRecipe("portableblender_item", {Ingredient("goldnugget", 2) , Ingredient("transistor", 2) , Ingredient("twigs", 4)},
+--GLOBAL.RECIPETABS.FARM, TECH.NONE, nil, nil, nil, nil, "realchef")
+--AddRecipe("portablespicer_item", {Ingredient("goldnugget", 2) , Ingredient("cutstone", 6) , Ingredient("twigs", 6)},
+--GLOBAL.RECIPETABS.FARM, TECH.NONE, nil, nil, nil, nil, "realchef")
 
 --Add for chef perk
-AddRecipe("perkportablecookpot", {Ingredient("goldnugget", 2) , Ingredient("charcoal", 6) , Ingredient("twigs", 6)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "perkchef",
-"images/inventoryimages1.xml", "portablecookpot_item.tex")
-AddRecipe("perkportableblender", {Ingredient("goldnugget", 2) , Ingredient("transistor", 2) , Ingredient("twigs", 4)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "perkchef",
-"images/inventoryimages1.xml", "portableblender_item.tex")
-AddRecipe("perkportablespicer", {Ingredient("goldnugget", 2) , Ingredient("cutstone", 6) , Ingredient("twigs", 6)},
-GLOBAL.RECIPETABS.PERK_TAB, TECH.NONE, nil, nil, nil, nil, "perkchef",
-"images/inventoryimages1.xml", "portablespicer_item.tex")
-STRINGS.NAMES.PERKPORTABLEBLENDER = STRINGS.NAMES.PORTABLEBLENDER_ITEM
-STRINGS.RECIPE_DESC.PERKPORTABLEBLENDER = STRINGS.RECIPE_DESC.PORTABLEBLENDER_ITEM
-STRINGS.NAMES.PERKPORTABLESPICER = STRINGS.NAMES.PORTABLESPICER_ITEM
-STRINGS.RECIPE_DESC.PERKPORTABLESPICER = STRINGS.RECIPE_DESC.PORTABLESPICER_ITEM
-STRINGS.NAMES.PERKPORTABLECOOKPOT = STRINGS.NAMES.PORTABLECOOKPOT_ITEM
-STRINGS.RECIPE_DESC.PERKPORTABLECOOKPOT = STRINGS.RECIPE_DESC.PORTABLECOOKPOT_ITEM
+AddRecipe2("perkportablecookpot", -- name
+	{Ingredient("goldnugget", 2) , Ingredient("charcoal", 6) , Ingredient("twigs", 6)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "portablecookpot_item",
+		builder_tag = "perkchef",
+		numtogive = 1,
+		image = "perkportablecookpot.tex",
+		atlas = "images/inventoryimages/perkportablecookpot.xml"}, -- config
+	{ "REWARD",} -- filters
+)
+
+AddRecipe2("perkportableblender", -- name
+	{Ingredient("goldnugget", 2) , Ingredient("transistor", 2) , Ingredient("twigs", 4)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "portableblender_item",
+		builder_tag = "perkchef",
+		numtogive = 1,
+		image = "perkportableblender.tex",
+		atlas = "images/inventoryimages/perkportableblender.xml"}, -- config
+	{ "REWARD",} -- filters
+)
+
+AddRecipe2("perkportablespicer", -- name
+	{Ingredient("goldnugget", 2) , Ingredient("cutstone", 6) , Ingredient("twigs", 6)},-- ingredients
+	TECH.NONE, -- tech
+	{ 	product = "portablespicer_item",
+		builder_tag = "perkchef",
+		numtogive = 1,
+		image = "perkportablespicer.tex",
+		atlas = "images/inventoryimages/perkportablespicer.xml"}, -- config
+	{ "REWARD",} -- filters
+)
 
 AddPlayerPostInit(function(inst)
 	inst.checkemerald = GLOBAL.net_shortint(inst.GUID,"checkemerald")
