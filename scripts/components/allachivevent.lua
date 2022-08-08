@@ -1,4 +1,5 @@
-require "components/eventfunctions" 
+require "components/eventfunctions"
+require "components/helperfunctions"  
 
 --Basics
 local function findprefab(list,prefab)
@@ -3173,6 +3174,14 @@ end
 -- AllPlayers[1].components.allachivcoin.coinamount = 200
 -- AllPlayers[1].components.allachivevent:grantAll(AllPlayers[1])
 -- AllPlayers[1]:ApplyScale("grow",2)
+
+function allachivevent:giveCoins(playerName, coinAmount)
+	local inst = getInstForPlayerName(playerName)
+	if(inst) then
+		inst.components.allachivcoin.coinamount = inst.components.allachivcoin.coinamount + coinAmount
+	end
+end
+
 function allachivevent:grantAll(inst)
 	self.intogame = true
 	self.firsteat = true

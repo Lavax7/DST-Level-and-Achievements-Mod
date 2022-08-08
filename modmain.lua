@@ -523,7 +523,22 @@ AddRecipe2("perkportablespicer", -- name
 	{ "REWARD",} -- filters
 )
 
+GLOBAL.c_giveCoins = function() end
+GLOBAL.c_giveXP = function() end
+
+
 AddPlayerPostInit(function(inst)
+	GLOBAL.c_giveCoins = function(playerName, coinAmount)
+		if not GLOBAL.TheNet:GetIsClient() then
+			inst.components.allachivevent:giveCoins(playerName, coinAmount)
+		end
+	end
+	GLOBAL.c_giveXP = function(playerName, xpAmount)
+		if not GLOBAL.TheNet:GetIsClient() then
+			inst.components.levelsystem:giveXP(playerName, xpAmount)
+		end
+	end
+	
 	inst.checkemerald = GLOBAL.net_shortint(inst.GUID,"checkemerald")
 	inst.checkcitrin = GLOBAL.net_shortint(inst.GUID,"checkcitrin")
 	inst.checkamber = GLOBAL.net_shortint(inst.GUID,"checkamber")

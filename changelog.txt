@@ -5,6 +5,13 @@ ToDo:
 -limit PlaySound on coin or levelpoint use to the player
 -change fuelreaver achievement to include celestial guardian
 
+3.7.4 Changes:
+added Portugese Language, thanks to llllBMllll
+added commands
+c_giveCoins(playerName, amount)
+c_giveXP(playerName, amount)
+fixed bad linebreaks for russian language
+
 3.7.3 Changes:
 updated crafting tab to the new system
 

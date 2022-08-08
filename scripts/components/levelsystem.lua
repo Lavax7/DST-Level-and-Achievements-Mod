@@ -1,3 +1,5 @@
+require "components/helperfunctions"  
+
 local function getlevel(self,level) self.inst.currentlevel:set(level) end
 local function getlevelxp(self,levelxp) self.inst.currentlevelxp:set(levelxp) end
 local function getoverallxp(self,overallxp) self.inst.currentoverallxp:set(overallxp) end
@@ -610,6 +612,14 @@ end
 --Debug
 --AllPlayers[1].components.levelsystem:xpDoDelta(100000,AllPlayers[1])
 --gain xp
+function levelsystem:giveXP(playerName, xpAmount)
+	if(xpAmount < 0) then return end
+	local inst = getInstForPlayerName(playerName)
+	if(inst) then
+		inst.components.levelsystem:xpDoDelta(xpAmount,inst)
+	end
+end
+
 function levelsystem:onkilledother(inst)
     inst:ListenForEvent("killed", function(killer, data)
 		if _G.KILLXP ~= true then return end
