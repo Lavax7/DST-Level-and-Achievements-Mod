@@ -297,7 +297,7 @@ STRINGS.ACHIEVEMENTS={
     ["catperson"]={
         ["name"]="Persona gatto ",
         ["description"]="Fai amicizia con "..allachiv_eventdata["catperson"].." catcoons ",
-        ["info"]="",
+        ["info"] = "befriended catcoons at least "..allachiv_eventdata["catperson"].." times",
     },
     ["rocklob"]={
         ["name"]="Sparring partner",
